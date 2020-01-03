@@ -10,7 +10,7 @@ if [ -n "$DANCER_HOME" ] && [ -d "$DANCER_HOME" ]; then
   scp target/dancer-0.0.1-SNAPSHOT.jar root@$TARGET:/root
   ssh root@$TARGET << EOF
     killall -9 java
-    nohup "java -jar /root/dancer-0.0.1-SNAPSHOT.jar > foo.out 2> foo.err < /dev/null"
+    nohup java -jar /root/dancer-0.0.1-SNAPSHOT.jar > foo.out 2> foo.err < /dev/null 
 EOF
 else
   echo "dancer home does not point to a directory"
