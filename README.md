@@ -1,0 +1,16 @@
+# The code-dancer
+tools/scripts that helps the developers to dance the project
+
+## deploy.sh
+You can "deploy" the main component. This is a pretty dirty deployment and only suitable until we really go live.
+Install/Configure this tool:
+ * link it in ~/bin/ or make in by other means findable in your PATH
+ * create an environment variable that points to your local folder of the dancer project
+ * let one of the admis import your public ssh key into the remote server
+
+Run this tool:
+Just type `deploy.sh` and wait. The run will take some minutes and unfortunatly the script does not 
+return to your terminal after it has done it's job. If you read 
+> Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+> permitted by applicable law.
+Than you are done and you can stop with `STR + C`
