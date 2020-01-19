@@ -1,17 +1,15 @@
 #!/bin/bash
 
-echo "Expecting Dacncer in $DANCER_HOME"
+echo "Starting the dancer app."
+echo "It will start the lastes docker image: dancier/dancer:1.0"
+echo "It will kill the currently running one."
+echo "Expect a downtime"
+
 TARGET=mumble.frubumi.de
 
-if [ -n "$DANCER_HOME" ] && [ -d "$DANCER_HOME" ]; then
-  echo "Building $DANCER_HOME"
-  cd $DANCER_HOME || exit
-  mvn package
-  scp target/dancer-0.0.1-SNAPSHOT.jar root@$TARGET:/root
-  ssh root@$TARGET << EOF
-    killall -9 java
-    nohup java -jar /root/dancer-0.0.1-SNAPSHOT.jar > foo.out 2> foo.err < /dev/null 
+ssh root@$TARGET << EOF
+    docker stop dancer
+    docker rm dancer
+    docker pull dancier/dancer:1.0
+    docker run --name dancer  -d -p 8080:8080 dancier/dancer:1.0
 EOF
-else
-  echo "dancer home does not point to a directory"
-fi
