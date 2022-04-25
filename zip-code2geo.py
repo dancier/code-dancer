@@ -4,8 +4,6 @@ import csv
 
 file_name = "georef-germany-postleitzahl.csv"
 
-print(file_name)
-
 with open(file_name, mode='r') as source_file:
     csv_reader = csv.DictReader(source_file, delimiter=';')
     line_count = 0
