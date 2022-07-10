@@ -1,31 +1,41 @@
 version: "3"
 
 # Define the Docker volume named esdata for the Elasticsearch container.
-volumes:
-  esdata:
 
 # Deploying three container services (fluentd, elasticsearch, and kibana)
 services: # Deploy using the custom image automatically be created during the build process.
 
 # Created using the Docker image elasticsearch:7.17.0
   elasticsearch:
-    image: elasticsearch:7.17.0
+    image: elasticsearch:${ELASTIC_VERSION}
     ports:
       - 9200:9200
     environment:
-      - discovery.type=single-node # Runs as a single-node
+      discovery.type: single-node # Runs as a single-node
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      # Bootstrap password.
+      # Used to initialize the keystore during the initial startup of
+      # Elasticsearch. Ignored on subsequent runs.
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+
     volumes: # Stores elasticsearch data locally on the esdata Docker volume
-      - esdata:/usr/share/elasticsearch/data
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
+      - ./volumes/esdata:/usr/share/elasticsearch/data
 
 # Created using the Docker image kibana:7.17.0
   kibana:
-    image: kibana:7.17.0
+    image: kibana:${ELASTIC_VERSION}
     links: # Links kibana service to the elasticsearch container
       - elasticsearch
     depends_on:
       - elasticsearch
     ports: # Runs kibana service on default port 5601
       - 5601:5601
+    volumes:
+      - ./kibana/config/kibana.yml://usr/share/kibana/config/kibana.yml:ro,z
     environment: # Defined host configuration
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+#      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
 
