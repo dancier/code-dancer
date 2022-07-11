@@ -5,11 +5,41 @@ version: "3"
 # Deploying three container services (fluentd, elasticsearch, and kibana)
 services: # Deploy using the custom image automatically be created during the build process.
 
+  traefik:
+    container_name: traefik
+    image: "traefik:v2.6"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
+      #- "--certificatesresolvers.mytlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.mytlschallenge.acme.email=marc@becheftigt.de"
+      - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8088:8080"
+    volumes:
+      - "./volumes/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
 # Created using the Docker image elasticsearch:7.17.0
   elasticsearch:
     image: elasticsearch:${ELASTIC_VERSION}
-    ports:
-      - 9200:9200
+#   ports:
+#  - 9200:9200
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.elasticsearch.rule=Host(`elastic.dancier.net`)"
+      - "traefik.http.routers.elasticsearch.entrypoints=websecure"
+      - "traefik.http.routers.elasticsearch.tls.certresolver=mytlschallenge"
     environment:
       discovery.type: single-node # Runs as a single-node
       ES_JAVA_OPTS: -Xms512m -Xmx512m
@@ -27,12 +57,15 @@ services: # Deploy using the custom image automatically be created during the bu
 # Created using the Docker image kibana:7.17.0
   kibana:
     image: kibana:${ELASTIC_VERSION}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana.rule=Host(`dancelake.dancier.net`)"
+      - "traefik.http.routers.kibana.entrypoints=websecure"
+      - "traefik.http.routers.kibana.tls.certresolver=mytlschallenge"
     links: # Links kibana service to the elasticsearch container
       - elasticsearch
     depends_on:
       - elasticsearch
-    ports: # Runs kibana service on default port 5601
-      - 5601:5601
     volumes:
       - ./kibana/config/kibana.yml://usr/share/kibana/config/kibana.yml:ro,z
     environment: # Defined host configuration
