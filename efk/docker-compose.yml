@@ -49,7 +49,8 @@ services: # Deploy using the custom image automatically be created during the bu
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
-
+    depends_on:
+      - traefik
     volumes: # Stores elasticsearch data locally on the esdata Docker volume
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - ./volumes/esdata:/usr/share/elasticsearch/data
@@ -66,6 +67,7 @@ services: # Deploy using the custom image automatically be created during the bu
       - elasticsearch
     depends_on:
       - elasticsearch
+      - traefik
     volumes:
       - ./kibana/config/kibana.yml://usr/share/kibana/config/kibana.yml:ro,z
     environment: # Defined host configuration
