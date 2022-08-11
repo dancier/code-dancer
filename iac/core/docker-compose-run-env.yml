@@ -43,6 +43,9 @@ services:
     ports:
       - "24224:24224"
       - "24224:24224/udp"
+    environment:
+      ELASTIC_USER: ${ELASTIC_USER}
+      ELASTIC_PASS: ${ELASTIC_PASS}
 
   dancer:
     container_name: dancer
