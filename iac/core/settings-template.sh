@@ -34,4 +34,4 @@ export DANCER_TAG=dancer
 
 export TRAEFIK_TAG=traefik
 
-export SHOW_DANCER_TAG
+export SHOW_DANCER_TAG=show-dancer
