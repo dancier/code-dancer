@@ -32,7 +32,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: traefik
+        tag: ${TRAEFIK_TAG}
   
   fluentd:
     container_name: fluentd
@@ -50,11 +50,11 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dancer.rule=Host(`dancer.dancier.net`)"
+      - "traefik.http.routers.dancer.rule=Host(`${BACKEND_HOSTNAME}`)"
       - "traefik.http.routers.dancer.entrypoints=websecure"
       - "traefik.http.routers.dancer.tls.certresolver=mytlschallenge"
     environment:
-      SPRING_PROFILES_ACTIVE: staging,json-logging
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
@@ -71,7 +71,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: dancer
+        tag: ${DANCER_TAG}
     depends_on:
       - dancer-db
       - traefik
@@ -94,7 +94,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.dancier.net`)"
+      - "traefik.http.routers.pgadmin.rule=Host(`${PG_ADMIN_HOSTNAME}`)"
       - "traefik.http.routers.pgadmin.entrypoints=websecure"
       - "traefik.http.routers.pgadmin.tls.certresolver=mytlschallenge"
     environment:
@@ -113,7 +113,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.show-dancer.rule=Host(`dancier.net`)"
+      - "traefik.http.routers.show-dancer.rule=Host(`${SHOW_DANCER_HOSTNAME}`)"
       - "traefik.http.routers.show-dancer.entrypoints=websecure"
       - "traefik.http.routers.show-dancer.tls.certresolver=mytlschallenge"
     links:
@@ -122,7 +122,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: show-dancer
+        tag: ${SHOW_DANCER_TAG}
     depends_on:
       - traefik
       - fluentd

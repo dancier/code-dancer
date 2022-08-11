@@ -13,6 +13,7 @@ export APP_AUTH_TOKENSECRET=adfjasödfjasöljföasjflasjdflkjaslkfjaslfjladsjf
 
 export APP_CORS_ALLOWED_ORIGINS=https://dancier.net
 
+export SPRING_PROFILES_ACTIVE=staging,json-logging
 
 export APP_MAIL_USER=dev@dancier.net
 export APP_MAIL_PASS=whatever
@@ -22,3 +23,15 @@ export APP_CAPTCHA_APIKEY=captcha-api-key
 # for delivering the files
 export ELASTIC_USER=elastic
 export ELASTIC_PASS=secret
+
+export BACKEND_HOSTNAME=dancer.dancier.net
+
+export PG_ADMIN_HOSTNAME=pgadmin.dancier.net
+
+export SHOW_DANCER_HOSTNAME=dancier.net
+
+export DANCER_TAG=dancer
+
+export TRAEFIK_TAG=traefik
+
+export SHOW_DANCER_TAG
