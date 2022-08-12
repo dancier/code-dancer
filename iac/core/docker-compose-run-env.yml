@@ -44,6 +44,7 @@ services:
       - "24224:24224"
       - "24224:24224/udp"
     environment:
+      ELASTIC_HOST: ${ELASTIC_HOST}
       ELASTIC_USER: ${ELASTIC_USER}
       ELASTIC_PASS: ${ELASTIC_PASS}
 
