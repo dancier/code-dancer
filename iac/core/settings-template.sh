@@ -35,3 +35,5 @@ export DANCER_TAG=dancer
 export TRAEFIK_TAG=traefik
 
 export SHOW_DANCER_TAG=show-dancer
+
+export SHOW_DANCER_DEPLOY_TAG=1.0

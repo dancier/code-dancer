@@ -112,7 +112,7 @@ services:
 
   show-dancer:
     container_name: show-dancer
-    image: dancier/show-dancer:beta-sign-up
+    image: dancier/show-dancer:${SHOW_DANCER_DEPLOY_TAG}
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
