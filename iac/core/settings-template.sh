@@ -21,6 +21,7 @@ export APP_MAIL_PASS=whatever
 export APP_CAPTCHA_APIKEY=captcha-api-key
 
 # for delivering the files
+export ELASTIC_HOST=elastic.dancier.net
 export ELASTIC_USER=elastic
 export ELASTIC_PASS=secret
 
