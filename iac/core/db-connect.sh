@@ -1,0 +1,1 @@
+docker exec -i dancer-db psql -h localhost -U dancer dancer -a -b -s -f -
