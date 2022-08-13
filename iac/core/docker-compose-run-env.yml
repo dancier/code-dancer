@@ -89,7 +89,6 @@ services:
       POSTGRES_USER: ${DANCER_DB_USER}
       POSTGRES_PASSWORD: ${DANCER_DB_PASSWORD}
       POSTGRES_DB: ${DANCER_DB_DB}
-      PGPASSWORD: $DANCER_DB_PASSWORD}
     volumes:
       - ./volumes/dancer-data:/var/lib/postgresql/data
 
