@@ -1,3 +1,4 @@
+cd /run-env
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 FILENAME=db_dump_${NOW}.sql
 echo "Dumping into ${FILENAME}"
