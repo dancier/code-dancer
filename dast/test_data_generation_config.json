@@ -1,0 +1,32 @@
+{
+    "properties" : [
+        "UNIQUE",
+        "NOT_NULL"
+    ],
+
+    "email": {
+        "constraints" : ["UNIQUE", "NOT_NULL"],
+        "format" : "string"
+    },
+    "password": {
+        "constraints" : ["NOT_NULL"]
+    },
+    "gender": {
+        "constraints": ["NOT_NULL"],
+        "valueDistrubtion" : {
+            "MALE": 45,
+            "FEMALE": 45,
+            "DIVERS": 5,
+            "NA": 5
+        }
+    },
+    "size": {
+        "valueDistrubtion": {
+            "MALE" : {
+                "0-150": 1,
+                "151-160": 4,
+                "161-180": 90
+            }
+        }
+    }
+}
