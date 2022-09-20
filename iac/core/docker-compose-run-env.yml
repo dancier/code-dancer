@@ -81,6 +81,13 @@ services:
       - traefik
       - fluentd
 
+  recommendation:
+    container_name: recommendation
+    image: dancier/recommendation:latest
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+
   dancer-db:
     container_name: dancer-db
     image: postgres
