@@ -127,6 +127,8 @@ services:
       - "traefik.http.routers.show-dancer.rule=Host(`${SHOW_DANCER_HOSTNAME}`)"
       - "traefik.http.routers.show-dancer.entrypoints=websecure"
       - "traefik.http.routers.show-dancer.tls.certresolver=mytlschallenge"
+    environment:
+      DANCIER_BACKEND_URL: ${DANCIER_BACKEND_URL}
     links:
       - fluentd
     logging:
