@@ -146,8 +146,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      KEYCLOAK_ADMIN=admin
-      KEYCLOAK_ADMIN_PASSWORD=${IAM_ADMIN_PASSWD}
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: ${IAM_ADMIN_PASSWD}
     command:
       start-dev
 
