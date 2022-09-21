@@ -81,13 +81,6 @@ services:
       - traefik
       - fluentd
 
-  recommendation:
-    container_name: recommendation
-    image: dancier/recommendation:latest
-    restart: unless-stopped
-    ports:
-      - "5000:5000"
-
   dancer-db:
     container_name: dancer-db
     image: postgres
@@ -139,6 +132,35 @@ services:
     depends_on:
       - traefik
       - fluentd
+
+  recommendation:
+    container_name: recommendation
+    image: dancier/recommendation:latest
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+
+  iam:
+    container_name: iam
+    image: keycloak/keycloak:19.0.2
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN=admin
+      KEYCLOAK_ADMIN_PASSWORD=${IAM_ADMIN_PASSWD}
+    command:
+      start-dev
+
+  s3:
+    container_name: s3
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: "foobar"
+      MINIO_ROOT_PASSWORD: "foobar28793w7"
+    command: server /data --console-address ":9001"
 
   tool:
     container_name: tool

@@ -38,3 +38,5 @@ export TRAEFIK_TAG=traefik
 export SHOW_DANCER_TAG=show-dancer
 
 export SHOW_DANCER_DEPLOY_TAG=1.0
+
+export DANCIER_BACKEND_URL=https://dancer.dancier.net
