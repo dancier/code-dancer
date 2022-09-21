@@ -149,8 +149,11 @@ services:
       - "traefik.http.routers.test-iam.entrypoints=websecure"
       - "traefik.http.routers.test-iam.tls.certresolver=mytlschallenge"
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: ${IAM_ADMIN_PASSWD}
+       KC_PROXY: edge
+       KEYCLOAK_ADMIN: admin
+       KEYCLOAK_ADMIN_PASSWORD: ${IAM_ADMIN_PASSWD}
+       KEYCLOAK_LOGLEVEL: INFO
+       PROXY_ADDRESS_FORWARDING: "true"
     command:
       start-dev
 
