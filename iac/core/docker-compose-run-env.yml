@@ -143,8 +143,11 @@ services:
   iam:
     container_name: iam
     image: quay.io/keycloak/keycloak:19.0.2
-    ports:
-      - "8080:8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.test-iam.rule=Host(`${IAM_HOST}`)"
+      - "traefik.http.routers.test-iam.entrypoints=websecure"
+      - "traefik.http.routers.test-iam.tls.certresolver=mytlschallenge"
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: ${IAM_ADMIN_PASSWD}

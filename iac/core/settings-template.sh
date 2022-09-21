@@ -42,3 +42,5 @@ export SHOW_DANCER_DEPLOY_TAG=1.0
 export DANCIER_BACKEND_URL=https://dancer.dancier.net
 
 export IAM_ADMIN_PASSWD=foobar123
+
+export IAM_HOST=iam.dancier.net
