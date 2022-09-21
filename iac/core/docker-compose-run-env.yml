@@ -151,6 +151,11 @@ services:
       - "traefik.http.routers.test-iam.rule=Host(`${IAM_HOST}`)"
       - "traefik.http.routers.test-iam.entrypoints=websecure"
       - "traefik.http.routers.test-iam.tls.certresolver=mytlschallenge"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 10s
+      timeout: 2s
+      retries: 15
     environment:
        KC_PROXY: edge
        KEYCLOAK_ADMIN: admin
