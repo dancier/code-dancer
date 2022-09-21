@@ -45,7 +45,7 @@ export IAM_ADMIN_PASSWD=foobar123
 
 export IAM_HOST=iam.dancier.net
 
-export MINIO_ROOT_PASSWORD=secret
+export S3_ADMIN_PASSWD=secret
 
 export S3_HOST=test-s3.dancier.net
 
