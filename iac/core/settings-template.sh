@@ -44,3 +44,9 @@ export DANCIER_BACKEND_URL=https://dancer.dancier.net
 export IAM_ADMIN_PASSWD=foobar123
 
 export IAM_HOST=iam.dancier.net
+
+export MINIO_ROOT_PASSWORD=secret
+
+export S3_HOST=test-s3.dancier.net
+
+export S3_UI_HOST=test-s3-ui.dancier.net

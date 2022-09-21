@@ -171,9 +171,17 @@ services:
     ports:
       - "9000:9000"
       - "9001:9001"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.s3.rule=Host(`${S3_HOST}`)"
+      - "traefik.http.routers.s3.entrypoints=websecure"
+      - "traefik.http.routers.s3.certresolver=mytlschallenge"
+      - "traefik.http.routers.s3.service=s3-service"
+
+      - "traefik.http.services.s3-service.loadbalancer.server.port=9000"
     environment:
-      MINIO_ROOT_USER: "foobar"
-      MINIO_ROOT_PASSWORD: "foobar28793w7"
+      MINIO_ROOT_USER: "admin"
+      MINIO_ROOT_PASSWORD: ${S3_ADMIN_PASSWD}
     command: server /data --console-address ":9001"
     depends_on:
       - iam
