@@ -185,6 +185,8 @@ services:
     environment:
       MINIO_ROOT_USER: "admin"
       MINIO_ROOT_PASSWORD: ${S3_ADMIN_PASSWD}
+      MINIO_BROWSER_REDIRECT_URL: https://${S3_UI_HOST}
+      MINIO_SERVER_URL: https://${S3_HOST}
     command: server /data --console-address ":9001"
     depends_on:
       - iam
