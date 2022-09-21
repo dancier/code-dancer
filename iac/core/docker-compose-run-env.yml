@@ -142,7 +142,7 @@ services:
 
   iam:
     container_name: iam
-    image: keycloak/keycloak:19.0.2
+    image: quay.io/keycloak/keycloak:19.0.2
     ports:
       - "8080:8080"
     environment:
