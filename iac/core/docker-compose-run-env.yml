@@ -80,6 +80,7 @@ services:
       - dancer-db
       - traefik
       - fluentd
+      - iam
 
   dancer-db:
     container_name: dancer-db
@@ -139,6 +140,8 @@ services:
     restart: unless-stopped
     ports:
       - "5000:5000"
+    depends_on:
+      - iam
 
   iam:
     container_name: iam
@@ -167,7 +170,8 @@ services:
       MINIO_ROOT_USER: "foobar"
       MINIO_ROOT_PASSWORD: "foobar28793w7"
     command: server /data --console-address ":9001"
-
+    depends_on:
+      - iam
   tool:
     container_name: tool
     image: ubuntu
