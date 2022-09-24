@@ -162,8 +162,25 @@ services:
        KEYCLOAK_ADMIN_PASSWORD: ${IAM_ADMIN_PASSWD}
        KEYCLOAK_LOGLEVEL: INFO
        PROXY_ADDRESS_FORWARDING: "true"
+
+       DB_VENDOR: POSTGRES
+       DB_ADDR: iam-db
+       DB_DATABASE: keycloak
+       DB_USER: keycloak
+       DB_SCHEMA: public
+       DB_PASSWORD: ${IAM_ADMIN_PASSWD}
     command:
       start-dev
+
+  iam-db:
+    image: 'postgres:alpine'
+    volumes:
+      - ./volumes/iam-db:/var/lib/postgresql/data
+    restart: 'always'
+    environment:
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${IAM_ADMIN_PASSWD}
+      POSTGRES_DB: keycloak
 
   s3:
     container_name: s3
