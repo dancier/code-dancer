@@ -174,9 +174,10 @@ services:
 
   iam-db:
     image: 'postgres:alpine'
+    container_name: iam-db
     volumes:
       - ./volumes/iam-db:/var/lib/postgresql/data
-    restart: 'always'
+    restart: 'unless-stopped'
     environment:
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: ${IAM_ADMIN_PASSWD}
