@@ -208,7 +208,7 @@ services:
       MINIO_ROOT_PASSWORD: ${S3_ADMIN_PASSWD}
       MINIO_BROWSER_REDIRECT_URL: https://${S3_UI_HOST}
       MINIO_SERVER_URL: https://${S3_HOST}
-      MINIO_IDENTITY_OPENID_CONFIG_URL: https://test-iam.dancier.net/realms/dancier/.well-known/openid-configuration
+      MINIO_IDENTITY_OPENID_CONFIG_URL: ${S3_OPENID_CONFIG_URL}
       MINIO_IDENTITY_OPENID_CLIENT_ID: s3
       MINIO_IDENTITY_OPENID_CLIENT_SECRET: ${S3_CLIENT_SECRET}
 

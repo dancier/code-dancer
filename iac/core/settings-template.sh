@@ -53,4 +53,6 @@ export S3_UI_HOST=test-s3-ui.dancier.net
 
 export S3_CLIENT_SECRET=secret
 
+export S3_OPENID_CONFIG_URL=https://test-iam.dancier.net/realms/dancier/.well-known/openid-configuration
+
 export PGADMIN_OAUTH_SECRET=secret
