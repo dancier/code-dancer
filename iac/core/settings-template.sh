@@ -50,3 +50,7 @@ export S3_ADMIN_PASSWD=secret
 export S3_HOST=test-s3.dancier.net
 
 export S3_UI_HOST=test-s3-ui.dancier.net
+
+export S3_CLIENT_SECRET=secret
+
+export PGADMIN_OAUTH_SECRET=secret
