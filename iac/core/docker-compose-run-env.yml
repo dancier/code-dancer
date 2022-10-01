@@ -161,7 +161,7 @@ services:
       - iam-db
     environment:
        KC_PROXY: edge
-       KC_HOSTNAME: https://${IAM_HOST}
+       KC_HOSTNAME: ${IAM_HOST}
        KEYCLOAK_ADMIN: admin
        KEYCLOAK_ADMIN_PASSWORD: ${IAM_ADMIN_PASSWD}
        KEYCLOAK_LOGLEVEL: INFO
