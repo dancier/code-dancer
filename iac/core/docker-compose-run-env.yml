@@ -146,7 +146,7 @@ services:
 
   iam:
     container_name: iam
-    image: quay.io/keycloak/keycloak:19.0.2
+    build: ./iam
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.test-iam.rule=Host(`${IAM_HOST}`)"
@@ -161,7 +161,7 @@ services:
       - iam-db
     environment:
        KC_PROXY: edge
-       KC_HOSTNAME: test-iam.dancier.net
+       KC_HOSTNAME: https://${IAM_HOST}
        KEYCLOAK_ADMIN: admin
        KEYCLOAK_ADMIN_PASSWORD: ${IAM_ADMIN_PASSWD}
        KEYCLOAK_LOGLEVEL: INFO
@@ -171,7 +171,7 @@ services:
        KC_DB_USERNAME: keycloak
        KC_DB_PASSWORD: ${IAM_ADMIN_PASSWD}
     command:
-      start
+      start --optimized
 
   iam-db:
     image: 'postgres:alpine'
