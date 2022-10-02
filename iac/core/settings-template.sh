@@ -55,4 +55,13 @@ export S3_CLIENT_SECRET=secret
 
 export S3_OPENID_CONFIG_URL=https://test-iam.dancier.net/realms/dancier/.well-known/openid-configuration
 
-export PGADMIN_OAUTH_SECRET=secret
+export PG_ADMIN_OAUTH2_SECRET=secret
+
+export PG_ADMIN_OAUTH2_TOKEN_URL=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/token
+
+export PG_ADMIN_OAUTH2_AUTHORIZATION_URL=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/auth
+
+export PG_ADMIN_OAUTH2_API_BASE_URL=https://test-iam.dancier.net/realms/dancier
+
+export PG_ADMIN_OAUTH2_USERINFO_ENDPOINT=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/userinfo
+

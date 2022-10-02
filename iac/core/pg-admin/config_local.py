@@ -57,17 +57,17 @@ OAUTH2_CONFIG = [
         # Oauth client id
         'OAUTH2_CLIENT_ID': 'pgadmin',
         # Oauth secret
-        'OAUTH2_CLIENT_SECRET': os.getenv('PGADMIN_OAUTH_SECRET'),
+        'OAUTH2_CLIENT_SECRET': os.getenv('PG_ADMIN_OAUTH_SECRET'),
         # URL to generate a token,
         # Ex: https://github.com/login/oauth/access_token
-        'OAUTH2_TOKEN_URL': 'https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/token',
+        'OAUTH2_TOKEN_URL': os.getenv('PG_ADMIN_OAUTH2_TOKEN_URL'),
         # URL is used for authentication,
         # Ex: https://github.com/login/oauth/authorize
-        'OAUTH2_AUTHORIZATION_URL': 'https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/auth',
+        'OAUTH2_AUTHORIZATION_URL': os.getenv('PG_ADMIN_OAUTH2_AUTHORIZATION_URL'),
         # Oauth base url, ex: https://api.github.com/
-        'OAUTH2_API_BASE_URL': 'https://test-iam.dancier.net/realms/dancier',
+        'OAUTH2_API_BASE_URL': os.getenv('PG_ADMIN_OAUTH2_API_BASE_URL'),
         # Name of the Endpoint, ex: user
-        'OAUTH2_USERINFO_ENDPOINT': 'https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/userinfo',
+        'OAUTH2_USERINFO_ENDPOINT': os.getenv('PG_ADMIN_OAUTH2_USERINFO_ENDPOINT'),
         # Oauth scope, ex: 'openid email profile'
         # Note that an 'email' claim is required in the resulting profile
         'OAUTH2_SCOPE': 'openid email profile',
