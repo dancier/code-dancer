@@ -53,7 +53,7 @@ OAUTH2_CONFIG = [
         # The name of the of the oauth provider, ex: github, google
         'OAUTH2_NAME': 'Test-Dancier',
         # The display name, ex: Google
-        'OAUTH2_DISPLAY_NAME': 'Dancier Test User',
+        'OAUTH2_DISPLAY_NAME': 'Dancier User',
         # Oauth client id
         'OAUTH2_CLIENT_ID': 'pgadmin',
         # Oauth secret
