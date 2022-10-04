@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://project.dancier.net/dancier_schema.json",
+    "title": "Describe a data state of a running instance of dancier, eg for the creation of test-data",
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "title": "Schema",
+            "description": "Pointer to the schema against which this document should be validated."
+        },
+        "dancers": {
+          "type": "array",
+          "item": {
+            "type": "object",
+            "additionalProperties": false
+          }
+        }
+    }
+
+}
