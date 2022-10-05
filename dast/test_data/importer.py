@@ -4,7 +4,6 @@ from services.dancer import RestClient as DancerClient
 
 
 class JsonImporter:
-    host_name = "http://localhost:8080"
 
     dc = DancerClient()
 
