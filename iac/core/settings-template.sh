@@ -65,3 +65,9 @@ export PG_ADMIN_OAUTH2_API_BASE_URL=https://test-iam.dancier.net/realms/dancier
 
 export PG_ADMIN_OAUTH2_USERINFO_ENDPOINT=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/userinfo
 
+export APP_CAPTCHA_MAGICTOKEN=secret
+
+export APP_ADMIN_EMAIL=marc@becheftigt.de
+
+export APP_ADMIN_PASS=secret
+

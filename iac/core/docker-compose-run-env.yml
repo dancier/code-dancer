@@ -67,6 +67,10 @@ services:
       APP_MAIL_USER: ${APP_MAIL_USER}
       APP_MAIL_PASS: ${APP_MAIL_PASS}
       APP_CAPTCHA_APIKEY: ${APP_CAPTCHA_APIKEY}
+      APP_CAPTCHA_MAGICTOKEN: ${APP_CAPTCHA_MAGICTOKEN}
+      APP_ADMIN_EMAIL: ${APP_ADMIN_EMAIL}
+      APP_ADMIN_PASS: ${APP_ADMIN_PASS}
+
     volumes:
       - ./volumes/dancer-media/images:/images-dir
     links:
