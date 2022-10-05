@@ -1,4 +1,4 @@
-# Develop
+# Howto use...
 
 ## create Virtual Env
 
@@ -13,3 +13,9 @@
 ## Install Requirements
 
 `pip install -r requirements.txt`
+
+## Run Dast
+
+`ipython -i setup.py`
+
+Have fun!
