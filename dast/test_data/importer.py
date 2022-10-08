@@ -7,14 +7,24 @@ class JsonImporter:
 
     dc = DancerClient()
 
+    admin_user = "marc@gorzala.de"
+    admin_pass = "secret"
+
     def __init__(self):
-        self.dc.login("marc@gorzala.de", "secret")
+        pass
 
     def import_dancer(self, dancer):
+        print("Admin login")
+        self.dc.auth_login(self.admin_user, self.admin_pass)
         email = dancer["email"]
         password = dancer["password"]
-        self.dc.registrations(email, password)
-        self.dc.setValidationStatus(email, True)
+        print("Perform Registration")
+        self.dc.auth_registrations(email, password)
+        self.dc.auth_setValidationStatus(email, True)
+        print("User Login")
+        self.dc.auth_login(email, password)
+        print("Profile update")
+        self.dc.profile_put("")
 
     def import_from_file(self, filename):
         f = open(filename)
