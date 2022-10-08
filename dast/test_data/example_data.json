@@ -26,32 +26,6 @@
       "country": "GER",
       "size": 190
     }
-,
-        {
-      "email" : "2-test@dancier.net",
-      "password": "secret",
-      "aboutMe": "",
-      "gender": "MALE",
-      "dancerName": "fred",
-      "birthDate": "1977-07-77",
-      "ableTo": [
-          {
-            "dance": "string",
-            "level": "NO_EXPERIENCE",
-            "leading": "FOLLOW"
-          }
-      ],
-      "wantsTo": [
-         {
-          "dance": "string",
-          "level": "NO_EXPERIENCE",
-          "leading": "FOLLOW"
-          }
-      ],
-      "zipCode": "44336",
-      "country": "GER",
-      "size": 190
-    }
 
   ]
 }
