@@ -32,6 +32,7 @@ class RestClient:
         return r
 
     def auth_login(self, email, password):
+        print("Loggin in:" + email)
         headers = {
             "Content-Type": "application/json",
         }
@@ -59,46 +60,13 @@ class RestClient:
         r = requests.post(self.hostname + "/authentication/registrations", headers=headers, data=json.dumps(payload))
         return r
 
-    def profile_put(self, body):
+    def profile_put(self, payload):
         headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + self.cached_token
         }
-        body = {
-            "size": 120,
-            "aboutMe": "Ich TAnzen lernen, egal wie hauptsache schnell.",
-            "gender": "DIVERS",
-            "dancerName": "dominik",
-            "birthDate": "1987-07-30",
-            "zipCode": "44139",
-            "country": "GER",
-            "profileImageHash": "60820f9f49c51232dca11cf582e8cee0b6e2fe086b69bfc7fb10597db9ff4589",
-            "ableTo": [
-                {
-                    "dance": "Tango",
-                    "level": "ADVANCED",
-                    "leading": "LEAD"
-                }
-            ],
-            "wantsTo": [
-                {
-                    "dance": "Lindi Hop",
-                    "level": "INTERMEDIATE",
-                    "leading": "FOLLOW"
-                },
-                {
-                    "dance": "Tango",
-                    "level": "INTERMEDIATE",
-                    "leading": "FOLLOW"
-                },
-                {
-                    "dance": "Bed Dance",
-                    "level": "ADVANCED",
-                    "leading": "FOLLOW"
-                }
-            ]
-        }
-        r = requests.put(self.hostname + "/profile", headers=headers, data=json.dumps(body))
+        print("Putting: " + str(payload))
+        r = requests.put(self.hostname + "/profile", headers=headers, data=json.dumps(payload))
         return r
 
     def auth_setValidationStatus(self, email, validated=True):
