@@ -144,6 +144,25 @@ services:
       - traefik
       - fluentd
 
+  chat-dancer:
+    container_name: chat-dancer
+    image: danicer/recommendation:latest
+    restart: unless-stopped
+    depends_on:
+      - chat-dancer-db
+
+  chat-dancer-db:
+    container_name: chat-dancer-db
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${CHAT_DANCER_DB_USER}
+      POSTGRES_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
+      POSTGRES_DB: ${CHAT_DANCER_DB}
+    volumes:
+      - ./volumes/recommendation-data:/var/lib/postgresql/data
+
+
   recommendation:
     container_name: recommendation
     image: dancier/recommendation:latest
