@@ -153,6 +153,17 @@ services:
     depends_on:
       - iam
 
+  recommendation-db:
+    container_name: recommendation-db
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${RECOMMENDATION_DB_USER}
+      POSTGRES_PASSWORD: ${RECOMMENDATION_DB_PASSWORD}
+      POSTGRES_DB: ${RECOMMENDATION_DB}
+    volumes:
+      - ./volumes/recommendation-data:/var/lib/postgresql/data
+
   iam:
     container_name: iam
     build: ./iam

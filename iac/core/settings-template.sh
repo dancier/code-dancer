@@ -71,3 +71,8 @@ export APP_ADMIN_EMAIL=marc@becheftigt.de
 
 export APP_ADMIN_PASS=secret
 
+export RECOMMENDATION_DB_USER=recommendation
+
+export RECOMMENDATION_DB_PASSWORD=secret
+
+export RECOMMENDATION_DB_PASSWORD=recommendation
