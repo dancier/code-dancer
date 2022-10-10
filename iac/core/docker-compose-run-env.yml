@@ -149,9 +149,9 @@ services:
     image: dancier/recommendation:latest
     restart: unless-stopped
     environment:
-      - CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}
-      - CHAT_DANCER_DB_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
-      - CHAT_DANCER_DB: ${CHAT_DANCER_DB}
+      CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}
+      CHAT_DANCER_DB_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
+      CHAT_DANCER_DB: ${CHAT_DANCER_DB}
     depends_on:
       - chat-dancer-db
 
@@ -171,9 +171,9 @@ services:
     image: dancier/recommendation:latest
     restart: unless-stopped
     environment:
-      - RECOMMENDATION_DB_USER: ${RECOMMENDATION_DB_USER}
-      - RECOMMENDATION_DB_PASSWORD: ${RECOMMENDATION_DB_PASSWORD}
-      - RECOMMENDATION_DB: ${RECOMMENDATION_DB}
+      RECOMMENDATION_DB_USER: ${RECOMMENDATION_DB_USER}
+      RECOMMENDATION_DB_PASSWORD: ${RECOMMENDATION_DB_PASSWORD}
+      RECOMMENDATION_DB: ${RECOMMENDATION_DB}
     ports:
       - "5000:5000"
     depends_on:

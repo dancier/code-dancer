@@ -75,10 +75,10 @@ export RECOMMENDATION_DB_USER=recommendation
 
 export RECOMMENDATION_DB_PASSWORD=secret
 
-export RECOMMENDATION_DB_PASSWORD=recommendation
+export RECOMMENDATION_DB=recommendation
 
 export CHAT_DANCER_DB_USER=chat-dancer
 
 export CHAT_DANCER_DB_PASSWORD=secret
 
-export CHAT_DANCER_DB_PASSWORD=chat-dancer
+export CHAT_DANCER_DB=chat-dancer
