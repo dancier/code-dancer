@@ -151,7 +151,7 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - iam
+      - recommendation-db
 
   recommendation-db:
     container_name: recommendation-db
