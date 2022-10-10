@@ -164,7 +164,7 @@ services:
       POSTGRES_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
       POSTGRES_DB: ${CHAT_DANCER_DB}
     volumes:
-      - ./volumes/recommendation-data:/var/lib/postgresql/data
+      - ./volumes/chat-dancer-data:/var/lib/postgresql/data
 
   recommendation:
     container_name: recommendation
