@@ -146,8 +146,12 @@ services:
 
   chat-dancer:
     container_name: chat-dancer
-    image: danicer/recommendation:latest
+    image: dancier/recommendation:latest
     restart: unless-stopped
+    environment:
+      - CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}
+      - CHAT_DANCER_DB_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
+      - CHAT_DANCER_DB: ${CHAT_DANCER_DB}
     depends_on:
       - chat-dancer-db
 
@@ -162,11 +166,14 @@ services:
     volumes:
       - ./volumes/recommendation-data:/var/lib/postgresql/data
 
-
   recommendation:
     container_name: recommendation
     image: dancier/recommendation:latest
     restart: unless-stopped
+    environment:
+      - RECOMMENDATION_DB_USER: ${RECOMMENDATION_DB_USER}
+      - RECOMMENDATION_DB_PASSWORD: ${RECOMMENDATION_DB_PASSWORD}
+      - RECOMMENDATION_DB: ${RECOMMENDATION_DB}
     ports:
       - "5000:5000"
     depends_on:
