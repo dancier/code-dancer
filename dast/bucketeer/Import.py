@@ -23,3 +23,6 @@ class EventLog:
     def list_with_prefix(self):
         for obj in self.client.list_objects("test", prefix="test123-"):
             print(obj.object_name)
+
+    def remove_bucket(self, name):
+        self.client.remove_bucket(name)
