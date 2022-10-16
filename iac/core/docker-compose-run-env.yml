@@ -88,7 +88,7 @@ services:
 
   dancer-db:
     container_name: dancer-db
-    image: postgres
+    image: postgres:14
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DANCER_DB_USER}
@@ -157,7 +157,7 @@ services:
 
   chat-dancer-db:
     container_name: chat-dancer-db
-    image: postgres
+    image: postgres:14
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${CHAT_DANCER_DB_USER}
@@ -181,7 +181,7 @@ services:
 
   recommendation-db:
     container_name: recommendation-db
-    image: postgres
+    image: postgres:14
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${RECOMMENDATION_DB_USER}
@@ -220,7 +220,7 @@ services:
       start --optimized
 
   iam-db:
-    image: 'postgres:alpine'
+    image: 'postgres:14'
     container_name: iam-db
     volumes:
       - ./volumes/iam-db:/var/lib/postgresql/data
@@ -264,6 +264,6 @@ services:
         condition: service_healthy
   tool:
     container_name: tool
-    image: ubuntu
+    image: ubuntu 
     restart: unless-stopped
     stdin_open: true
