@@ -82,3 +82,7 @@ export CHAT_DANCER_DB_USER=chat-dancer
 export CHAT_DANCER_DB_PASSWORD=secret
 
 export CHAT_DANCER_DB=chat-dancer
+
+export DANCIER_TOKEN_URI=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/token
+
+export S3_OIDC_CLIENT_ID=s3
