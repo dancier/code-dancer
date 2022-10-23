@@ -73,8 +73,8 @@ services:
       APP_S3_HOST: ${S3_HOST}
       APP_S3_STSENDPOINT: https://${S3_HOST}
       APP_S3_OIDC_TOKEN_URI: ${DANCIER_TOKEN_URI}
-      APP_S3_CLIENT_ID: ${S3_OIDC_CLIENT_ID}
-      APP_S3_CLIENT_SECRET: ${S3_CLIENT_SECRET}
+      APP_S3_OIDC_CLIENT_ID: ${S3_OIDC_CLIENT_ID}
+      APP_S3_OIDC_CLIENT_SECRET: ${S3_CLIENT_SECRET}
     volumes:
       - ./volumes/dancer-media/images:/images-dir
     links:
