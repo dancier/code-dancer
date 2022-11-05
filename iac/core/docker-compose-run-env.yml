@@ -175,9 +175,10 @@ services:
     image: dancier/recommendation:latest
     restart: unless-stopped
     environment:
-      RECOMMENDATION_DB_USER: ${RECOMMENDATION_DB_USER}
-      RECOMMENDATION_DB_PASSWORD: ${RECOMMENDATION_DB_PASSWORD}
-      RECOMMENDATION_DB: ${RECOMMENDATION_DB}
+      DB_USER: ${RECOMMENDATION_DB_USER}
+      DB_PASS: ${RECOMMENDATION_DB_PASSWORD}
+      DB_NAME: ${RECOMMENDATION_DB}
+      DB_HOST: recommendation-db
       S3_SECRET: ${RECOMMENDATION_S3_SECRET}
     ports:
       - "5000:5000"
