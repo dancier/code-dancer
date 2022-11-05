@@ -86,3 +86,5 @@ export CHAT_DANCER_DB=chat-dancer
 export DANCIER_TOKEN_URI=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/token
 
 export S3_OIDC_CLIENT_ID=s3
+
+export RECOMMENDATION_S3_SECRET=geheim
