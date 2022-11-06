@@ -180,6 +180,10 @@ services:
       DB_NAME: ${RECOMMENDATION_DB}
       DB_HOST: recommendation-db
       S3_SECRET: ${RECOMMENDATION_S3_SECRET}
+      S3_TOKENURI: ${RECOMMENDATION_S3_TOKENURI}
+      S3_STS_ENDPOINT: ${RECOMMENDATION_S3_STS_ENDPOINT}
+      S3_HOST: ${RECOMMENDATION_S3_HOST}
+
     ports:
       - "5000:5000"
     depends_on:

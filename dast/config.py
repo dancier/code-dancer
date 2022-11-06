@@ -1,12 +1,13 @@
 import os
 
-def evn_or_default(var_name, default):
-    envioronment_variable = os.getenv(var_name)
-    if envioronment_variable:
-        return envioronment_variable
+
+def env_or_default(var_name, default):
+    environment_variable = os.getenv(var_name)
+    if environment_variable:
+        return environment_variable
     return default
 
-dancer_hostname = evn_or_default("DAST_DANCER_HOST", "http://localhost:8080")
 
-
-
+DANCER_HOSTNAME = env_or_default("DAST_DANCER_HOST", "http://localhost:8080")
+DANCER_ADMIN_USER = env_or_default("DANCER_ADMIN_USER", "marc@gorzala.de")
+DANCER_ADMIN_PASS = env_or_default("DANCER_ADMIN_PASS", "secret")

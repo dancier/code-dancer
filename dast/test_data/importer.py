@@ -1,21 +1,18 @@
 import json
+import config
 
 from services.dancer import RestClient as DancerClient
 
 
 class JsonImporter:
-
     dc = DancerClient()
-
-    admin_user = "marc@gorzala.de"
-    admin_pass = "secret"
 
     def __init__(self):
         pass
 
     def register_dancer(self, dancer):
         print("Admin login")
-        self.dc.auth_login(self.admin_user, self.admin_pass)
+        self.dc.auth_login(config.DANCER_ADMIN_USER, config.DANCER_ADMIN_PASS)
         email = dancer["email"]
         password = dancer["password"]
         print("Perform Registration")
@@ -28,7 +25,7 @@ class JsonImporter:
         print("Profile update")
 
         payload = {
-            "aboutMe" : dancer["aboutMe"],
+            "aboutMe": dancer["aboutMe"],
             "gender": dancer["gender"],
             "dancerName": dancer["dancerName"],
             "birthDate": dancer["birthDate"],
@@ -41,7 +38,6 @@ class JsonImporter:
 
         r = self.dc.profile_put(payload)
         print(r)
-
 
     def import_from_file(self, filename):
         f = open(filename)
