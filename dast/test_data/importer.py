@@ -11,7 +11,7 @@ class JsonImporter:
         pass
 
     def register_dancer(self, dancer):
-        print("Admin login")
+        print("Admin login: ")
         self.dc.auth_login(config.DANCER_ADMIN_USER, config.DANCER_ADMIN_PASS)
         email = dancer["email"]
         password = dancer["password"]

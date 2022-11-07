@@ -1,9 +1,10 @@
 import requests
 import json
+import config
 
 
 class RestClient:
-    hostname = "http://localhost:8080"
+    hostname = config.DANCER_HOSTNAME
 
     cached_token = None
 
@@ -32,7 +33,7 @@ class RestClient:
         return r
 
     def auth_login(self, email, password):
-        print("Loggin in:" + email)
+        print("Login in with:" + email)
         headers = {
             "Content-Type": "application/json",
         }
@@ -42,7 +43,7 @@ class RestClient:
         }
         r = requests.post(self.hostname + "/authentication/login", headers=headers, data=json.dumps(payload))
         if r.status_code == 200:
-            print("Login successfull: ")
+            print("Login successful: ")
             print("Token stored for further reference")
             self.cached_token = r.json()["accessToken"]
         return r
