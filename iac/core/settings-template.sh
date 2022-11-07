@@ -88,3 +88,9 @@ export DANCIER_TOKEN_URI=https://test-iam.dancier.net/realms/dancier/protocol/op
 export S3_OIDC_CLIENT_ID=s3
 
 export RECOMMENDATION_S3_SECRET=geheim
+
+export RECOMMENDATION_S3_TOKENURI=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/token
+
+export RECOMMENDATION_S3_STS_ENDPOINT=https://test-s3.dancier.net
+
+export RECOMMENDATION_S3_HOST=test-s3.dancier.net
