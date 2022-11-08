@@ -30,7 +30,8 @@ class Generator():
             "Köln",
             "Hamburg",
             "Frankfurt",
-            "Berlin"
+            "Berlin",
+            "München"
         ]
 
         self.sex = {
@@ -122,7 +123,7 @@ class Generator():
                     print("Found Focus City: " + city)
                     break
             if focus_city:
-                res[zip] = 10
+                res[zip] = 30
             else:
                 res[zip] = 1
 
