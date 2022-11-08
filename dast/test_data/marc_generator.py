@@ -7,6 +7,7 @@ def get_zip_to_city_map(filename):
             res[row['Name']] = row['PLZ Name (short)']
     return res
 
+
 def draw(dimension):
     import random
     total_weights = sum(dimension.values())
@@ -48,16 +49,16 @@ class Generator():
         }
 
         self.month = {
-            "02" : 1,
-            "03" : 1
+            "02": 1,
+            "03": 1
         }
 
         self.day = {
-            "01" : 1
+            "01": 1
         }
 
         self.size = {
-            100 :1
+            100: 1
         }
 
         self.can_do = {
@@ -72,39 +73,39 @@ class Generator():
             "PRO": 15
         }
         self.age = {
-            18 : 1,
-            19 : 1,
-            20 : 1,
-            21 : 1,
-            22 : 1,
-            23 : 1,
-            24 : 1,
-            25 : 1,
-            26 : 1,
-            27 : 1,
-            28 : 1,
-            29 : 1,
-            30 : 1,
-            31 : 1,
-            32 : 1,
-            33 : 1,
-            34 : 1,
-            35 : 1,
-            36 : 1,
-            37 : 1,
-            38 : 1,
-            39 : 1,
-            40 : 1,
-            41 : 1,
-            42 : 1,
-            43 : 1,
-            44 : 1,
-            45 : 1,
-            46 : 1,
-            47 : 1,
-            48 : 1,
-            49 : 1,
-            50 : 1
+            18: 1,
+            19: 1,
+            20: 1,
+            21: 1,
+            22: 1,
+            23: 1,
+            24: 1,
+            25: 1,
+            26: 1,
+            27: 1,
+            28: 1,
+            29: 1,
+            30: 1,
+            31: 1,
+            32: 1,
+            33: 1,
+            34: 1,
+            35: 1,
+            36: 1,
+            37: 1,
+            38: 1,
+            39: 1,
+            40: 1,
+            41: 1,
+            42: 1,
+            43: 1,
+            44: 1,
+            45: 1,
+            46: 1,
+            47: 1,
+            48: 1,
+            49: 1,
+            50: 1
         }
 
         self.zip_to_city = get_zip_to_city_map(csv_filename)
@@ -117,7 +118,7 @@ class Generator():
             focus_city = False
             for fc in self.focus_cities:
                 if city in fc:
-                    focus_city=True
+                    focus_city = True
                     print("Found Focus City: " + city)
                     break
             if focus_city:
@@ -130,7 +131,7 @@ class Generator():
     def get_x_dancer(self, x):
         res = []
         for i in range(x):
-            res.append(self.get_one_random_dancer(i+1))
+            res.append(self.get_one_random_dancer(i + 1))
         return res
 
     def produce_import_file(self, size, output_filename):
@@ -143,7 +144,6 @@ class Generator():
         with open(output_filename, "w") as outfile:
             outfile.write(res_json_str)
 
-
     def get_one_random_dancer(self, i):
         res = dict()
         res["email"] = str(i) + "-test@dancier.net"
@@ -151,7 +151,7 @@ class Generator():
         res["password"] = "secret"
         res["aboutMe"] = "lorem ipsum"
         res["gender"] = draw(self.sex)
-        res["birthDate"] = str(2022-draw(self.age)) \
+        res["birthDate"] = str(2022 - draw(self.age)) \
                            + "-" + draw(self.month) \
                            + "-" + draw(self.day)
 
