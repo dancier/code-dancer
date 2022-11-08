@@ -1,3 +1,6 @@
 ipython
 requests
 minio
+jupyterlab
+geopandas
+matplotlib
