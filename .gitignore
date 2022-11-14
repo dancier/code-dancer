@@ -2,3 +2,4 @@
 .iml
 __pycache__
 .env
+dast/env.sh.local
