@@ -296,6 +296,28 @@ services:
       - 127.0.0.1:9092:9081
       - 127.0.0.1:9081:9081
 
+  kafka-ui:
+    container_name: kafka-ui
+    image: tchiotludo/akhq:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kafka.rule=Host(`${KAFKA_UI_HOSTNAME}`)"
+      - "traefik.http.routers.kafka.entrypoints=websecure"
+      - "traefik.http.routers.kafka.tls.certresolver=mytlschallenge"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/ui"]
+      interval: 10s
+      timeout: 2s
+    expose:
+      - "8080"
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka:9092"
+
   tool:
     container_name: tool
     image: ubuntu 

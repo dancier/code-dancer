@@ -94,3 +94,7 @@ export RECOMMENDATION_S3_TOKENURI=https://test-iam.dancier.net/realms/dancier/pr
 export RECOMMENDATION_S3_STS_ENDPOINT=https://test-s3.dancier.net
 
 export RECOMMENDATION_S3_HOST=test-s3.dancier.net
+
+export KAFKA_UI_HOSTNAME=test-kafka-ui.dancier.net
+
+
