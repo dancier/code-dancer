@@ -150,7 +150,7 @@ services:
 
   chat-dancer:
     container_name: chat-dancer
-    image: dancier/recommendation:latest
+    image: dancier/chat-dancer:latest
     restart: unless-stopped
     environment:
       CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}

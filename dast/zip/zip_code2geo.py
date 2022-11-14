@@ -16,7 +16,7 @@ def csv_to_sql(input_filename, output_filename):
                 zip_area_points = row['geo_point_2d'].split(',')
                 output_file.write(f"""
                 INSERT INTO location_zip_code (id, zip_code, country, latitude, longitude, city)
-                    SELECT gen_random_uuid(), {zip_code}, 'GER', {zip_area_points[0]}, {zip_area_points[1]}, '{zip_name_short}'
+                    SELECT gen_random_uuid(), '{zip_code}', 'GER', {zip_area_points[0]}, {zip_area_points[1]}, '{zip_name_short}'
                 WHERE NOT EXISTS(
                     SELECT 1 FROM location_zip_code
                      WHERE country = 'GER'
