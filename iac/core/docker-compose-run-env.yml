@@ -185,7 +185,7 @@ services:
       S3_HOST: ${RECOMMENDATION_S3_HOST}
 
     ports:
-      - "5000:5000"
+      - "5000:80"
     depends_on:
       - recommendation-db
 
