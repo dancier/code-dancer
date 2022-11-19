@@ -37,7 +37,7 @@ services: # Deploy using the custom image automatically be created during the bu
 #  - 9200:9200
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.elasticsearch.rule=Host(`elastic.dancier.net`)"
+      - "traefik.http.routers.elasticsearch.rule=Host(`test-elastic.dancier.net`)"
       - "traefik.http.routers.elasticsearch.entrypoints=websecure"
       - "traefik.http.routers.elasticsearch.tls.certresolver=mytlschallenge"
     environment:
@@ -60,7 +60,7 @@ services: # Deploy using the custom image automatically be created during the bu
     image: kibana:${ELASTIC_VERSION}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.kibana.rule=Host(`dancelake.dancier.net`)"
+      - "traefik.http.routers.kibana.rule=Host(`test-dancelake.dancier.net`)"
       - "traefik.http.routers.kibana.entrypoints=websecure"
       - "traefik.http.routers.kibana.tls.certresolver=mytlschallenge"
     links: # Links kibana service to the elasticsearch container
@@ -71,6 +71,5 @@ services: # Deploy using the custom image automatically be created during the bu
     volumes:
       - ./kibana/config/kibana.yml://usr/share/kibana/config/kibana.yml:ro,z
     environment: # Defined host configuration
-#      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
       KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
 
