@@ -319,6 +319,7 @@ services:
                 bootstrap.servers: "kafka:9092"
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus
     ports:
       - "9090:9090"
@@ -329,7 +330,7 @@ services:
       - "traefik.http.routers.prometheus.tls.certresolver=mytlschallenge"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./volumes/prometheus:/prometheus
+#      - ./volumes/prometheus:/prometheus
 
   tool:
     container_name: tool
