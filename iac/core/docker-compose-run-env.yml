@@ -318,6 +318,13 @@ services:
               properties:
                 bootstrap.servers: "kafka:9092"
 
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
   tool:
     container_name: tool
     image: ubuntu 

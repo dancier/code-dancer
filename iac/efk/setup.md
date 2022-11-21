@@ -24,3 +24,7 @@ after first run:
  chown 1000:1000 -R ./volumes/esdata/
 (otherwise elastic will not start)
 
+
+create passwords in container with elasticserach_setup_passwords...
+
+now configure the password where other components connect to elastic
