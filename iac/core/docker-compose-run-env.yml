@@ -381,6 +381,8 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: ${KAFKA_UI_TAG}
+    depends_on:
+      - fluentd
 
 
   prometheus:
