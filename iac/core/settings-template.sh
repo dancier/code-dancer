@@ -111,4 +111,12 @@ export RECOMMENDATION_DB_TAG=recommendation-db
 
 export IAM_TAG=iam
 
-export IAM_DB_TAG=iam_db
+export IAM_DB_TAG=iam-db
+
+export S3_TAG=s3
+
+export KAFKA_TAG=kafka
+
+export KAFKA_UI_TAG=kafka-ui
+
+export PROMETHEUS_TAG=prometheus

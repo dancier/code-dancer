@@ -312,6 +312,13 @@ services:
     depends_on:
       iam:
         condition: service_healthy
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${S3_TAG}
+
+
 
   kafka:
     container_name: kafka
@@ -335,6 +342,12 @@ services:
     ports:
       - 127.0.0.1:9092:9081
       - 127.0.0.1:9081:9081
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${KAFKA_TAG}
+
 
   kafka-ui:
     container_name: kafka-ui
@@ -357,6 +370,12 @@ services:
             docker-kafka-server:
               properties:
                 bootstrap.servers: "kafka:9092"
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${KAFKA_UI_TAG}
+
 
   prometheus:
     container_name: prometheus
@@ -371,6 +390,11 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
 #      - ./volumes/prometheus:/prometheus
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${PROMETHEUS_TAG}
 
   tool:
     container_name: tool
