@@ -97,4 +97,6 @@ export RECOMMENDATION_S3_HOST=test-s3.dancier.net
 
 export KAFKA_UI_HOSTNAME=test-kafka-ui.dancier.net
 
+export COMPOSE_HTTP_TIMEOUT=120
 
+export RECOMMENDATION_TAG=recommendation
