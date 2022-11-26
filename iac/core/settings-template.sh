@@ -100,3 +100,15 @@ export KAFKA_UI_HOSTNAME=test-kafka-ui.dancier.net
 export COMPOSE_HTTP_TIMEOUT=120
 
 export RECOMMENDATION_TAG=recommendation
+
+export DANCER_DB_TAG=dancer-db
+
+export CHAT_DANCER_TAG=chat-dancer
+
+export CHAT_DANCER_DB=chat-dancer-db
+
+export RECOMMENDATION_DB_TAG=recommendation-db
+
+export IAM_TAG=iam
+
+export IAM_DB_TAG=iam_db

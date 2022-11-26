@@ -100,6 +100,12 @@ services:
       POSTGRES_DB: ${DANCER_DB_DB}
     volumes:
       - ./volumes/dancer-data:/var/lib/postgresql/data
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${DANCER_DB_TAG}
+
 
   pg-admin:
     container_name: pg-admin
@@ -158,6 +164,12 @@ services:
       CHAT_DANCER_DB: ${CHAT_DANCER_DB}
     depends_on:
       - chat-dancer-db
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${CHAT_DANCER_TAG}
+
 
   chat-dancer-db:
     container_name: chat-dancer-db
@@ -169,6 +181,12 @@ services:
       POSTGRES_DB: ${CHAT_DANCER_DB}
     volumes:
       - ./volumes/chat-dancer-data:/var/lib/postgresql/data
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${CHAT_DANCER_DB}
+    
 
   recommendation:
     container_name: recommendation
@@ -204,6 +222,11 @@ services:
       POSTGRES_DB: ${RECOMMENDATION_DB}
     volumes:
       - ./volumes/recommendation-data:/var/lib/postgresql/data
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${RECOMMENDATION_DB_TAG}
 
   iam:
     container_name: iam
@@ -233,6 +256,12 @@ services:
        KC_DB_PASSWORD: ${IAM_ADMIN_PASSWD}
     command:
       start --optimized
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${IAM_TAG}
+      
 
   iam-db:
     image: 'postgres:14'
@@ -244,6 +273,12 @@ services:
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: ${IAM_ADMIN_PASSWD}
       POSTGRES_DB: keycloak
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: ${IAM_DB_TAG}
+
 
   s3:
     container_name: s3
