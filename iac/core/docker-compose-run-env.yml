@@ -222,6 +222,8 @@ services:
       POSTGRES_DB: ${RECOMMENDATION_DB}
     volumes:
       - ./volumes/recommendation-data:/var/lib/postgresql/data
+    depends_on:
+      - fluentd
     logging:
       driver: fluentd
       options:
@@ -273,6 +275,8 @@ services:
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: ${IAM_ADMIN_PASSWD}
       POSTGRES_DB: keycloak
+    depends_on:
+      - fluentd
     logging:
       driver: fluentd
       options:
