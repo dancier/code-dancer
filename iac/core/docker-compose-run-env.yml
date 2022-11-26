@@ -188,6 +188,8 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: ${CHAT_DANCER_DB}
+    depends_on:
+      - fluentd
     
 
   recommendation:
