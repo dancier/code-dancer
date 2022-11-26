@@ -100,6 +100,8 @@ services:
       POSTGRES_DB: ${DANCER_DB_DB}
     volumes:
       - ./volumes/dancer-data:/var/lib/postgresql/data
+    depends_on:
+      - fluentd
     logging:
       driver: fluentd
       options:
