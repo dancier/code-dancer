@@ -396,6 +396,8 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
 #      - ./volumes/prometheus:/prometheus
+    depends_on:
+      - fluentd
     logging:
       driver: fluentd
       options:
