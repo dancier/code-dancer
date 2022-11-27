@@ -164,6 +164,8 @@ services:
       CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}
       CHAT_DANCER_DB_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
       CHAT_DANCER_DB: ${CHAT_DANCER_DB}
+    ports:
+      - "9999:8080"
     depends_on:
       - chat-dancer-db
     logging:
