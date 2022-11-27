@@ -355,6 +355,8 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: ${KAFKA_TAG}
+    depends_on:
+      - fluentd
 
 
   kafka-ui:
