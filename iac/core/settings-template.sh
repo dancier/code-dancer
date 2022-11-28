@@ -99,11 +99,11 @@ export KAFKA_UI_HOSTNAME=test-kafka-ui.dancier.net
 
 export COMPOSE_HTTP_TIMEOUT=120
 
-export RECOMMENDATION_TAG=recommendation
+export RECOMMENDATION_TAG=latest
 
 export DANCER_DB_TAG=dancer-db
 
-export CHAT_DANCER_TAG=chat-dancer
+export CHAT_DANCER_TAG=1.0
 
 export CHAT_DANCER_DB=chat-dancer-db
 

@@ -196,7 +196,7 @@ services:
 
   recommendation:
     container_name: recommendation
-    image: dancier/recommendation:latest
+    image: dancier/recommendation:${RECOMMENDATION_TAG}
     restart: unless-stopped
     environment:
       DB_USER: ${RECOMMENDATION_DB_USER}
