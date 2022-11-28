@@ -14,7 +14,7 @@ function deploy() {
     export SERVICE=$1
     VAR_NAME=${SERVICE^^}_TAG
     VAR_NAME=${VAR_NAME//-/_}
-    export ${!VAR_NAME}=${2}
+    export ${VAR_NAME}=${2}
     echo "Using Tag var: ${VAR_NAME}"
     echo "With Value: ${!VAR_NAME}"
     echo "Pulling ${SERVICE} with TAG: $2"
