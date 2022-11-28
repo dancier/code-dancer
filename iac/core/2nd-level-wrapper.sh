@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usable_services = "dancer, chat-dancer, show-dancer, recommendation"
+usable_services="dancer, chat-dancer, show-dancer, recommendation"
 
 if [ -z ${RUN_ENV} ];
   then 
@@ -48,6 +48,7 @@ case $1 in
     ;;
     stats)
         docker stats --no-stream
+    ;;
     *)
         echo "Unkown command... $1"
 
