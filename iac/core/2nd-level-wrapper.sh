@@ -23,11 +23,6 @@ function deploy() {
 }
 
 case $1 in
-    help)
-        echo "Usage: 2nd-level-wrapper.sh command command_options..."
-        echo "Where command can be deploy, up, stop, ps, stats"
-        echo "Deploy options are: servicename and tag"
-    ;;
     deploy)
         if (( $# == 3 ))   ;
             then
@@ -49,7 +44,9 @@ case $1 in
     stats)
         docker stats --no-stream
     ;;
-    *)
-        echo "Unkown command... $1"
+    *|help)
+        echo "Usage: 2nd-level-wrapper.sh command command_options..."
+        echo "Where command can be deploy, up, stop, ps, stats"
+        echo "Deploy options are: servicename and tag"
 
 esac
