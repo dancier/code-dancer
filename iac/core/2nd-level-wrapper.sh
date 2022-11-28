@@ -10,9 +10,8 @@ cd ${RUN_ENV}
 
 function deploy() {
     export SERVICE=$1
-    export ${SERVICE}_TAG=$2
+    export ${SERVICE^^}_TAG=$2
     echo "Pulling ${SERVICE} with TAG: $2"
-    echo $DANCER_TAG
     docker-compose pull ${SERVICE}
     docker-compose up -d --no-deps ${SERVICE}
 }
