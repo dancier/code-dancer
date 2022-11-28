@@ -83,7 +83,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${DANCER_TAG}
+        tag: service-dancer
     depends_on:
       - dancer-db
       - traefik
@@ -106,7 +106,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${DANCER_DB_TAG}
+        tag: db-dancer
 
 
   pg-admin:
@@ -151,7 +151,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${SHOW_DANCER_TAG}
+        tag: service-show-dancer
     depends_on:
       - traefik
       - fluentd
@@ -172,7 +172,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${CHAT_DANCER_TAG}
+        tag: service-chat-dancer
 
 
   chat-dancer-db:
@@ -189,7 +189,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${CHAT_DANCER_DB}
+        tag: db-chat-dancer
     depends_on:
       - fluentd
     
@@ -216,7 +216,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${RECOMMENDATION_TAG}
+        tag: service-recommendation
 
   recommendation-db:
     container_name: recommendation-db
@@ -234,7 +234,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${RECOMMENDATION_DB_TAG}
+        tag: db-recommendation
 
   iam:
     container_name: iam
@@ -268,7 +268,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${IAM_TAG}
+        tag: service-iam
       
 
   iam-db:
@@ -287,7 +287,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${IAM_DB_TAG}
+        tag: db-iam
 
 
   s3:
@@ -326,9 +326,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${S3_TAG}
-
-
+        tag: service-s3
 
   kafka:
     container_name: kafka
@@ -356,7 +354,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${KAFKA_TAG}
+        tag: service-kafka
     depends_on:
       - fluentd
 
@@ -386,7 +384,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${KAFKA_UI_TAG}
+        tag: service-kafka-ui
     depends_on:
       - fluentd
 
@@ -410,7 +408,7 @@ services:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: ${PROMETHEUS_TAG}
+        tag: service-prometheus
 
   tool:
     container_name: tool
