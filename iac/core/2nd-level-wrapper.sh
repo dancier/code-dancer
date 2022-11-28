@@ -10,7 +10,9 @@ cd ${RUN_ENV}
 
 function deploy() {
     export SERVICE=$1
-    export ${SERVICE^^}_TAG= ${2//-/_}
+    VAR_NAME=${SERVICE^^}_TAG
+    VAR_NAME=${VAR_NAME//-/_}
+    export ${VAR_NAME}=${2}
     echo "Pulling ${SERVICE} with TAG: $2"
     docker-compose pull ${SERVICE}
     docker-compose up -d --no-deps ${SERVICE}

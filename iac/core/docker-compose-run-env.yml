@@ -158,7 +158,7 @@ services:
 
   chat-dancer:
     container_name: chat-dancer
-    image: dancier/chat-dancer:1.0
+    image: dancier/chat-dancer:${CHAT_DANCER_TAG}
     restart: unless-stopped
     environment:
       CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}
