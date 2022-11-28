@@ -1,5 +1,7 @@
 #!/bin/bash
 
+usable_services = "dancer, chat-dancer, show-dancer, recommendation"
+
 if [ -z ${RUN_ENV} ];
   then 
     echo "You have to provide the path to the docker-compose file as an environment-variable RUN_ENV"
@@ -23,7 +25,7 @@ function deploy() {
 case $1 in
     help)
         echo "Usage: 2nd-level-wrapper.sh command command_options..."
-        echo "Where command can be deploy"
+        echo "Where command can be deploy, up, stop, ps, stats"
         echo "Deploy options are: servicename and tag"
     ;;
     deploy)
@@ -33,8 +35,19 @@ case $1 in
             else
                 echo "the deploy commands needs two parameters"
                 
-        fi        
+        fi
     ;;
+    up)
+        docker-compose up -d $2
+    ;;
+    stop)
+        docker-compose stop $2 
+    ;;
+    ps)
+        docker-compose ps
+    ;;
+    stats)
+        docker stats --no-stream
     *)
         echo "Unkown command... $1"
 
