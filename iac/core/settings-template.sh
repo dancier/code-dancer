@@ -31,7 +31,7 @@ export PG_ADMIN_HOSTNAME=pgadmin.dancier.net
 
 export SHOW_DANCER_HOSTNAME=dancier.net
 
-export DANCER_TAG=dancer
+export DANCER_TAG=1.0
 
 export TRAEFIK_TAG=traefik
 
@@ -120,3 +120,5 @@ export KAFKA_TAG=kafka
 export KAFKA_UI_TAG=kafka-ui
 
 export PROMETHEUS_TAG=prometheus
+
+export RUN_ENV=/run-env

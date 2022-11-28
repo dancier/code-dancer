@@ -50,7 +50,7 @@ services:
 
   dancer:
     container_name: dancer
-    image: dancier/dancer:1.0
+    image: dancier/dancer:${DANCER_TAG:-1.0}
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
