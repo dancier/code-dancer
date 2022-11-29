@@ -1,7 +1,5 @@
 #!/bin/bash
 
-usable_services="dancer, chat-dancer, show-dancer, recommendation"
-
 if [ -z ${RUN_ENV} ];
   then 
     echo "You have to provide the path to the docker-compose file as an environment-variable RUN_ENV"
@@ -10,8 +8,21 @@ fi
 
 cd ${RUN_ENV}
 
+function check_service() {
+    CHOOSEN_SERVICE=$1
+    case $CHOOSEN_SERVICE in 
+        dancer|chat-dancer|show-dancer|recommendation|kikeriki)
+        ;;
+        *)
+        echo "Unsported service $CHOOSEN_SERVICE"
+        exit 1
+    esac
+
+}
+
 function deploy() {
     export SERVICE=$1
+    check_service $SERVICE
     VAR_NAME=${SERVICE^^}_TAG
     VAR_NAME=${VAR_NAME//-/_}
     export ${VAR_NAME}=${2}
