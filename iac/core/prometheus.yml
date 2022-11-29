@@ -8,6 +8,15 @@ scrape_configs:
     - source_labels: [__name__]
       target_label: __name__
       replacement: "dancer_${1}"
+  - job_name: 'kikeriki'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['kikeriki:8081']
+    metric_relabel_configs:
+    - source_labels: [__name__]
+      target_label: __name__
+      replacement: "kikeriki_${1}"
   - job_name: 'recommendation'
     metrics_path: '/metrics'
     scrape_interval: 5s
