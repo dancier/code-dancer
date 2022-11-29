@@ -179,6 +179,8 @@ services:
     container_name: kikeriki
     image: dancier/kikeriki:${KIKERIKI_TAG}
     restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: json-logging
     depends_on:
       - fluentd
     logging:
