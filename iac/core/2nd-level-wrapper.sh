@@ -58,6 +58,9 @@ case $1 in
     *|help)
         echo "Usage: 2nd-level-wrapper.sh command command_options..."
         echo "Where command can be deploy, up, stop, ps, stats"
-        echo "Deploy options are: servicename and tag"
+        echo "Usage of command deploy: "
+        echo "deploy <service_name> <docker_tag>"
+        echo ""
+        
 
 esac
