@@ -122,3 +122,5 @@ export KAFKA_UI_TAG=kafka-ui
 export PROMETHEUS_TAG=prometheus
 
 export RUN_ENV=/run-env
+
+export KIKERIKI_TAG=1.0
