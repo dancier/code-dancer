@@ -181,6 +181,7 @@ services:
     restart: unless-stopped
     environment:
       SPRING_PROFILES_ACTIVE: json-logging
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - fluentd
     logging:
