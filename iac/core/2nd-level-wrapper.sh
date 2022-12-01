@@ -15,6 +15,7 @@ function check_service() {
         ;;
         *)
         echo "Unsported service $CHOOSEN_SERVICE"
+        echo "Thoose are supported: dancer|chat-dancer|show-dancer|recommendation|kikeriki"
         exit 1
     esac
 
