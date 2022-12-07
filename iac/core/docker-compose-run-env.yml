@@ -1,53 +1,41 @@
 version: '3.8'
 
 services:
-  traefik:
-    container_name: traefik
-    image: "traefik:v2.6"
-    command:
-      - "--log.level=DEBUG"
-      - "--log.format=json"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-      - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
-      #- "--certificatesresolvers.mytlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.mytlschallenge.acme.email=marc@becheftigt.de"
-      - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
+  chat-dancer:
+    container_name: chat-dancer
+    image: dancier/chat-dancer:${CHAT_DANCER_TAG}
     restart: unless-stopped
+    environment:
+      CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}
+      CHAT_DANCER_DB_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
+      CHAT_DANCER_DB: ${CHAT_DANCER_DB}
     ports:
-      - "80:80"
-      - "443:443"
-      - "8088:8080"
-    volumes:
-      - "./volumes/letsencrypt:/letsencrypt"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    links:
+      - "9999:8080"
+    depends_on:
+      - chat-dancer-db
       - fluentd
     logging:
       driver: fluentd
       options:
         fluentd-address: localhost:24224
-        tag: service-traefik
-  
-  fluentd:
-    container_name: fluentd
-    build: ./fluentd
+        tag: service-chat-dancer
+  chat-dancer-db:
+    container_name: chat-dancer-db
+    image: postgres:14
     restart: unless-stopped
-    volumes:
-      - ./fluentd/conf:/fluentd/etc
-    ports:
-      - "24224:24224"
-      - "24224:24224/udp"
     environment:
-      ELASTIC_HOST: ${ELASTIC_HOST}
-      ELASTIC_USER: ${ELASTIC_USER}
-      ELASTIC_PASS: ${ELASTIC_PASS}
-
+      POSTGRES_USER: ${CHAT_DANCER_DB_USER}
+      POSTGRES_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
+      POSTGRES_DB: ${CHAT_DANCER_DB}
+    volumes:
+      - ./volumes/chat-dancer-data:/var/lib/postgresql/data
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: db-chat-dancer
+    depends_on:
+      - fluentd
   dancer:
     container_name: dancer
     image: dancier/dancer:${DANCER_TAG:-1.0}
@@ -89,7 +77,6 @@ services:
       - traefik
       - fluentd
       - iam
-
   dancer-db:
     container_name: dancer-db
     image: postgres:14
@@ -107,151 +94,19 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: db-dancer
-
-
-  pg-admin:
-    container_name: pg-admin
-    image: dpage/pgadmin4:latest
+  fluentd:
+    container_name: fluentd
+    build: ./fluentd
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.pgadmin.rule=Host(`${PG_ADMIN_HOSTNAME}`)"
-      - "traefik.http.routers.pgadmin.entrypoints=websecure"
-      - "traefik.http.routers.pgadmin.tls.certresolver=mytlschallenge"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@dancier.net
-      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PASSWORD}
-      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: 10
-      PG_ADMIN_OAUTH_SECRET: ${PG_ADMIN_OAUTH_SECRET}
-      PG_ADMIN_OAUTH2_TOKEN_URL: ${PG_ADMIN_OAUTH2_TOKEN_URL}
-      PG_ADMIN_OAUTH2_AUTHORIZATION_URL: ${PG_ADMIN_OAUTH2_AUTHORIZATION_URL}
-      PG_ADMIN_OAUTH2_API_BASE_URL=https: ${PG_ADMIN_OAUTH2_API_BASE_URL}
-      PG_ADMIN_OAUTH2_USERINFO_ENDPOINT: ${PG_ADMIN_OAUTH2_USERINFO_ENDPOINT}
-
-    depends_on:
-      - dancer-db
-      - traefik
     volumes:
-      - ./volumes/pg-admin-data:/var/lib/pgadmin
-      - ./code-dancer/iac/core/pg-admin/config_local.py:/pgadmin4/config_local.py
-  show-dancer:
-    container_name: show-dancer
-    image: dancier/show-dancer:${SHOW_DANCER_DEPLOY_TAG}
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.show-dancer.rule=Host(`${SHOW_DANCER_HOSTNAME}`)"
-      - "traefik.http.routers.show-dancer.entrypoints=websecure"
-      - "traefik.http.routers.show-dancer.tls.certresolver=mytlschallenge"
-    environment:
-      DANCIER_BACKEND_URL: ${DANCIER_BACKEND_URL}
-    links:
-      - fluentd
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: service-show-dancer
-    depends_on:
-      - traefik
-      - fluentd
-
-  chat-dancer:
-    container_name: chat-dancer
-    image: dancier/chat-dancer:${CHAT_DANCER_TAG}
-    restart: unless-stopped
-    environment:
-      CHAT_DANCER_DB_USER: ${CHAT_DANCER_DB_USER}
-      CHAT_DANCER_DB_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
-      CHAT_DANCER_DB: ${CHAT_DANCER_DB}
+      - ./fluentd/conf:/fluentd/etc
     ports:
-      - "9999:8080"
-    depends_on:
-      - chat-dancer-db
-      - fluentd
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: service-chat-dancer
-
-  kikeriki:
-    container_name: kikeriki
-    image: dancier/kikeriki:${KIKERIKI_TAG}
-    restart: unless-stopped
+      - "24224:24224"
+      - "24224:24224/udp"
     environment:
-      SPRING_PROFILES_ACTIVE: json-logging
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    depends_on:
-      - fluentd
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: service-kikeriki
-
-
-  chat-dancer-db:
-    container_name: chat-dancer-db
-    image: postgres:14
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${CHAT_DANCER_DB_USER}
-      POSTGRES_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
-      POSTGRES_DB: ${CHAT_DANCER_DB}
-    volumes:
-      - ./volumes/chat-dancer-data:/var/lib/postgresql/data
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: db-chat-dancer
-    depends_on:
-      - fluentd
-    
-
-  recommendation:
-    container_name: recommendation
-    image: dancier/recommendation:${RECOMMENDATION_TAG}
-    restart: unless-stopped
-    environment:
-      DB_USER: ${RECOMMENDATION_DB_USER}
-      DB_PASS: ${RECOMMENDATION_DB_PASSWORD}
-      DB_NAME: ${RECOMMENDATION_DB}
-      DB_HOST: recommendation-db
-      S3_SECRET: ${RECOMMENDATION_S3_SECRET}
-      S3_TOKENURI: ${RECOMMENDATION_S3_TOKENURI}
-      S3_STS_ENDPOINT: ${RECOMMENDATION_S3_STS_ENDPOINT}
-      S3_HOST: ${RECOMMENDATION_S3_HOST}
-
-    ports:
-      - "5000:80"
-    depends_on:
-      - recommendation-db
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: service-recommendation
-
-  recommendation-db:
-    container_name: recommendation-db
-    image: postgres:14
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${RECOMMENDATION_DB_USER}
-      POSTGRES_PASSWORD: ${RECOMMENDATION_DB_PASSWORD}
-      POSTGRES_DB: ${RECOMMENDATION_DB}
-    volumes:
-      - ./volumes/recommendation-data:/var/lib/postgresql/data
-    depends_on:
-      - fluentd
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: db-recommendation
-
+      ELASTIC_HOST: ${ELASTIC_HOST}
+      ELASTIC_USER: ${ELASTIC_USER}
+      ELASTIC_PASS: ${ELASTIC_PASS}
   iam:
     container_name: iam
     build: ./iam
@@ -304,46 +159,6 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: db-iam
-
-
-  s3:
-    container_name: s3
-    image: minio/minio
-    labels:
-      - "traefik.enable=true"
-
-      - "traefik.http.routers.s3.rule=Host(`${S3_HOST}`)"
-      - "traefik.http.routers.s3.entrypoints=websecure"
-      - "traefik.http.routers.s3.tls.certresolver=mytlschallenge"
-      - "traefik.http.routers.s3.service=s3"
-      - "traefik.http.services.s3.loadbalancer.server.port=9000"
-
-      - "traefik.http.routers.s3-ui.rule=Host(`${S3_UI_HOST}`)"
-      - "traefik.http.routers.s3-ui.entrypoints=websecure"
-      - "traefik.http.routers.s3-ui.tls.certresolver=mytlschallenge"
-      - "traefik.http.routers.s3-ui.service=s3-ui"
-      - "traefik.http.services.s3-ui.loadbalancer.server.port=9001"
-    volumes:
-      - ./volumes/s3:/data
-    environment:
-      MINIO_ROOT_USER: "admin"
-      MINIO_ROOT_PASSWORD: ${S3_ADMIN_PASSWD}
-      MINIO_BROWSER_REDIRECT_URL: https://${S3_UI_HOST}
-      MINIO_SERVER_URL: https://${S3_HOST}
-      MINIO_IDENTITY_OPENID_CONFIG_URL: ${S3_OPENID_CONFIG_URL}
-      MINIO_IDENTITY_OPENID_CLIENT_ID: s3
-      MINIO_IDENTITY_OPENID_CLIENT_SECRET: ${S3_CLIENT_SECRET}
-
-    command: server /data --console-address ":9001"
-    depends_on:
-      iam:
-        condition: service_healthy
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: service-s3
-
   kafka:
     container_name: kafka
     image: bitnami/kafka:3.3.1
@@ -405,6 +220,45 @@ services:
       - fluentd
 
 
+  kikeriki:
+    container_name: kikeriki
+    image: dancier/kikeriki:${KIKERIKI_TAG}
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: json-logging
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - fluentd
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: service-kikeriki
+  pg-admin:
+    container_name: pg-admin
+    image: dpage/pgadmin4:latest
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgadmin.rule=Host(`${PG_ADMIN_HOSTNAME}`)"
+      - "traefik.http.routers.pgadmin.entrypoints=websecure"
+      - "traefik.http.routers.pgadmin.tls.certresolver=mytlschallenge"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@dancier.net
+      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PASSWORD}
+      PGADMIN_CONFIG_CONSOLE_LOG_LEVEL: 10
+      PG_ADMIN_OAUTH_SECRET: ${PG_ADMIN_OAUTH_SECRET}
+      PG_ADMIN_OAUTH2_TOKEN_URL: ${PG_ADMIN_OAUTH2_TOKEN_URL}
+      PG_ADMIN_OAUTH2_AUTHORIZATION_URL: ${PG_ADMIN_OAUTH2_AUTHORIZATION_URL}
+      PG_ADMIN_OAUTH2_API_BASE_URL=https: ${PG_ADMIN_OAUTH2_API_BASE_URL}
+      PG_ADMIN_OAUTH2_USERINFO_ENDPOINT: ${PG_ADMIN_OAUTH2_USERINFO_ENDPOINT}
+
+    depends_on:
+      - dancer-db
+      - traefik
+    volumes:
+      - ./volumes/pg-admin-data:/var/lib/pgadmin
+      - ./code-dancer/iac/core/pg-admin/config_local.py:/pgadmin4/config_local.py
   prometheus:
     container_name: prometheus
     image: prom/prometheus
@@ -426,8 +280,148 @@ services:
         fluentd-address: localhost:24224
         tag: service-prometheus
 
+  recommendation:
+    container_name: recommendation
+    image: dancier/recommendation:${RECOMMENDATION_TAG}
+    restart: unless-stopped
+    environment:
+      DB_USER: ${RECOMMENDATION_DB_USER}
+      DB_PASS: ${RECOMMENDATION_DB_PASSWORD}
+      DB_NAME: ${RECOMMENDATION_DB}
+      DB_HOST: recommendation-db
+      S3_SECRET: ${RECOMMENDATION_S3_SECRET}
+      S3_TOKENURI: ${RECOMMENDATION_S3_TOKENURI}
+      S3_STS_ENDPOINT: ${RECOMMENDATION_S3_STS_ENDPOINT}
+      S3_HOST: ${RECOMMENDATION_S3_HOST}
+    ports:
+      - "5000:80"
+    depends_on:
+      - recommendation-db
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: service-recommendation
+  recommendation-db:
+    container_name: recommendation-db
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${RECOMMENDATION_DB_USER}
+      POSTGRES_PASSWORD: ${RECOMMENDATION_DB_PASSWORD}
+      POSTGRES_DB: ${RECOMMENDATION_DB}
+    volumes:
+      - ./volumes/recommendation-data:/var/lib/postgresql/data
+    depends_on:
+      - fluentd
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: db-recommendation
+  s3:
+    container_name: s3
+    image: minio/minio
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.s3.rule=Host(`${S3_HOST}`)"
+      - "traefik.http.routers.s3.entrypoints=websecure"
+      - "traefik.http.routers.s3.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.s3.service=s3"
+      - "traefik.http.services.s3.loadbalancer.server.port=9000"
+
+      - "traefik.http.routers.s3-ui.rule=Host(`${S3_UI_HOST}`)"
+      - "traefik.http.routers.s3-ui.entrypoints=websecure"
+      - "traefik.http.routers.s3-ui.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.s3-ui.service=s3-ui"
+      - "traefik.http.services.s3-ui.loadbalancer.server.port=9001"
+    volumes:
+      - ./volumes/s3:/data
+    environment:
+      MINIO_ROOT_USER: "admin"
+      MINIO_ROOT_PASSWORD: ${S3_ADMIN_PASSWD}
+      MINIO_BROWSER_REDIRECT_URL: https://${S3_UI_HOST}
+      MINIO_SERVER_URL: https://${S3_HOST}
+      MINIO_IDENTITY_OPENID_CONFIG_URL: ${S3_OPENID_CONFIG_URL}
+      MINIO_IDENTITY_OPENID_CLIENT_ID: s3
+      MINIO_IDENTITY_OPENID_CLIENT_SECRET: ${S3_CLIENT_SECRET}
+
+    command: server /data --console-address ":9001"
+    depends_on:
+      iam:
+        condition: service_healthy
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: service-s3
+
+  show-dancer:
+    container_name: show-dancer
+    image: dancier/show-dancer:${SHOW_DANCER_DEPLOY_TAG}
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.show-dancer.rule=Host(`${SHOW_DANCER_HOSTNAME}`)"
+      - "traefik.http.routers.show-dancer.entrypoints=websecure"
+      - "traefik.http.routers.show-dancer.tls.certresolver=mytlschallenge"
+    environment:
+      DANCIER_BACKEND_URL: ${DANCIER_BACKEND_URL}
+    links:
+      - fluentd
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: service-show-dancer
+    depends_on:
+      - traefik
+      - fluentd
   tool:
     container_name: tool
     image: ubuntu 
     restart: unless-stopped
     stdin_open: true
+  traefik:
+    container_name: traefik
+    image: "traefik:v2.6"
+    command:
+      - "--log.level=DEBUG"
+      - "--log.format=json"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
+      #- "--certificatesresolvers.mytlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.mytlschallenge.acme.email=marc@becheftigt.de"
+      - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8088:8080"
+    volumes:
+      - "./volumes/letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    links:
+      - fluentd
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: service-traefik
+  
+
+
+
+
+
+
+
+
+

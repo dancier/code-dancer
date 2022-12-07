@@ -1,4 +1,17 @@
-# Dancer
+# Service-Dancer
+
+export SPRING_DATASOURCE_URL=jdbc:postgresql://${DANCER_DB_HOSTNAME}:5432/${DANCER_DB_DB}
+export SPRING_DATASOURCE_USERNAME=${DANCER_DB_USER}
+export SPRING_DATASOURCE_PASSWORD=${DANCER_DB_PASSWORD}
+export APP_AUTH_TOKENSECRET=adfjasödfjasöljföasjflasjdflkjaslkfjaslfjladsjf
+export APP_CORS_ALLOWED_ORIGINS=https://test.dancier.net
+export SPRING_PROFILES_ACTIVE=staging,json-logging
+export APP_MAIL_USER=dev@dancier.net
+export APP_MAIL_PASS=whatever
+export APP_CAPTCHA_APIKEY=captcha-api-key
+
+
+# DB-Dancer
 
 export DANCER_DB_HOSTNAME=dancer-db
 export DANCER_DB_USER=dancer
@@ -9,20 +22,6 @@ export DANCER_DB_DB=dancer
 
 export PG_ADMIN_PASSWORD=secret
 
-export SPRING_DATASOURCE_URL=jdbc:postgresql://${DANCER_DB_HOSTNAME}:5432/${DANCER_DB_DB}
-export SPRING_DATASOURCE_USERNAME=${DANCER_DB_USER}
-export SPRING_DATASOURCE_PASSWORD=${DANCER_DB_PASSWORD}
-
-export APP_AUTH_TOKENSECRET=adfjasödfjasöljföasjflasjdflkjaslkfjaslfjladsjf
-
-export APP_CORS_ALLOWED_ORIGINS=https://test.dancier.net
-
-export SPRING_PROFILES_ACTIVE=staging,json-logging
-
-export APP_MAIL_USER=dev@dancier.net
-export APP_MAIL_PASS=whatever
-
-export APP_CAPTCHA_APIKEY=captcha-api-key
 
 # for delivering the files
 export ELASTIC_HOST=elastic.dancier.net
