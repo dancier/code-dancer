@@ -11,7 +11,7 @@ export SPRING_DATASOURCE_PASSWORD=${DANCER_DB_PASSWORD}
 
 export APP_AUTH_TOKENSECRET=adfjasödfjasöljföasjflasjdflkjaslkfjaslfjladsjf
 
-export APP_CORS_ALLOWED_ORIGINS=https://dancier.net
+export APP_CORS_ALLOWED_ORIGINS=https://test.dancier.net
 
 export SPRING_PROFILES_ACTIVE=staging,json-logging
 
