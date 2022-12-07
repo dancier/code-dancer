@@ -1,7 +1,11 @@
+# Dancer
+
 export DANCER_DB_HOSTNAME=dancer-db
 export DANCER_DB_USER=dancer
 export DANCER_DB_PASSWORD=secret
 export DANCER_DB_DB=dancer
+
+# PG Admin
 
 export PG_ADMIN_PASSWORD=secret
 
@@ -118,3 +122,5 @@ export S3_TAG=s3
 export RUN_ENV=/run-env
 
 export KIKERIKI_TAG=1.0
+
+export PROMETHEUS_UI_HOST=test-prometheus.dancier.net

@@ -412,7 +412,7 @@ services:
       - "9090:9090"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=Host(`test-prometheus.dancier.net`)"
+      - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_UI_HOST}`)"
       - "traefik.http.routers.prometheus.entrypoints=websecure"
       - "traefik.http.routers.prometheus.tls.certresolver=mytlschallenge"
     volumes:
