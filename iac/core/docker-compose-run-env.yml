@@ -359,7 +359,7 @@ services:
 
   show-dancer:
     container_name: show-dancer
-    image: dancier/show-dancer:${SHOW_DANCER_DEPLOY_TAG}
+    image: dancier/show-dancer:${SHOW_DANCER_TAG}
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -415,13 +415,3 @@ services:
       options:
         fluentd-address: localhost:24224
         tag: service-traefik
-  
-
-
-
-
-
-
-
-
-
