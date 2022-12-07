@@ -115,12 +115,6 @@ export IAM_DB_TAG=iam-db
 
 export S3_TAG=s3
 
-export KAFKA_TAG=kafka
-
-export KAFKA_UI_TAG=kafka-ui
-
-export PROMETHEUS_TAG=prometheus
-
 export RUN_ENV=/run-env
 
 export KIKERIKI_TAG=1.0
