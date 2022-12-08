@@ -304,7 +304,7 @@ services:
         tag: service-recommendation
   recommendation-db:
     container_name: recommendation-db
-    image: postgres:14
+    image: postgres:15
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${RECOMMENDATION_DB_USER}
