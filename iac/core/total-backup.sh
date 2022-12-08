@@ -26,4 +26,4 @@ NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 
 tar czvf /root/total-backup-${NOW}.tgz /mnt/core-volume
 
-docker-command up -d --build
+docker-compose up -d --build
