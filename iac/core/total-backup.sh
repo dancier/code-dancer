@@ -14,3 +14,16 @@ docker-compose up -d iam-db
 docker-compose up -d chat-dancer-db
 docker-compose up -d dancer-db
 docker-compose up -d recommendation-db
+
+db-dump_iam.sh
+db-dump_chat_dancer.sh
+db-dump_dancer.sh
+db_dump_recommendation.sh
+
+docker-command down
+
+NOW=$(date +"%Y-%m-%d-%H-%M-%S")
+
+tar czvf /root/total-backup-${NOW}.tgz /mnt/core-volume
+
+docker-command up -d --build
