@@ -1,12 +1,22 @@
-if [ -z ${RUN_ENV} ];
-  then 
-    echo "You have to provide the path to the docker-compose file as an environment-variable RUN_ENV"
-    exit 1;
-fi
+docker exec -i recommendation-db psql -h localhost -U recommendation postgres << SQL
+-- https://stackoverflow.com/questions/17449420/postgresql-unable-to-drop-database-because-of-some-auto-connections-to-db
 
-cd ${RUN_ENV}
+REVOKE CONNECT ON DATABASE recommendation FROM public;
 
-FILENAME=db_dump_recommendation_${NOW}.sql.gz
-echo "Dumping into ${FILENAME}"
-docker exec recommendation-db pg_dump -h localhost -U recommendation recommendation | gzip -9 > $FILENAME
+SELECT pid, pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE datname = 'recommendation' AND pid <> pg_backend_pid();
+
+drop database recommendation;
+
+create database recommendation;
+
+GRANT CONNECT ON DATABASE recommendation TO public;
+
+SQL
+
+
+echo "Restoring from ${1}"
+
+cat $1 | gunzip - | docker exec -i recommendation-db psql recommendation -h localhost -U recommendation -b -f -
 echo "Done"
