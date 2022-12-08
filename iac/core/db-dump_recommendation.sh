@@ -1,4 +1,4 @@
-cd /run-env
+cd /run-env/db-dump
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 FILENAME=db_dump_recommendation_${NOW}.sql.gz
 echo "Dumping into ${FILENAME}"
