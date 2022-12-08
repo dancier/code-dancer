@@ -18,9 +18,9 @@ docker-compose up -d recommendation-db
 db-dump_iam.sh
 db-dump_chat_dancer.sh
 db-dump_dancer.sh
-db_dump_recommendation.sh
+db-dump_recommendation.sh
 
-docker-command down
+docker-compose down
 
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 
