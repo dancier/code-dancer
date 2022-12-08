@@ -143,7 +143,7 @@ services:
       
 
   iam-db:
-    image: 'postgres:14'
+    image: 'postgres:15'
     container_name: iam-db
     volumes:
       - ./volumes/iam-db:/var/lib/postgresql/data
