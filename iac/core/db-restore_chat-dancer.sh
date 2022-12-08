@@ -7,11 +7,11 @@ SELECT pid, pg_terminate_backend(pid)
 FROM pg_stat_activity
 WHERE datname = 'chat-dancer' AND pid <> pg_backend_pid();
 
-drop database chat-dancer;
+drop database "chat-dancer";
 
-create database chat-dancer;
+create database "chat-dancer";
 
-GRANT CONNECT ON DATABASE chat-dancer TO public;
+GRANT CONNECT ON DATABASE "chat-dancer" TO public;
 
 SQL
 
