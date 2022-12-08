@@ -79,7 +79,7 @@ services:
       - iam
   dancer-db:
     container_name: dancer-db
-    image: postgres:14
+    image: postgres:15
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DANCER_DB_USER}
