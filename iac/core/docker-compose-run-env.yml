@@ -21,7 +21,7 @@ services:
         tag: service-chat-dancer
   chat-dancer-db:
     container_name: chat-dancer-db
-    image: postgres:14
+    image: postgres:15
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${CHAT_DANCER_DB_USER}
