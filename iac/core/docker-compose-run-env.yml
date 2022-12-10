@@ -17,7 +17,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-chat-dancer
   chat-dancer-db:
     container_name: chat-dancer-db
@@ -32,7 +32,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: db-chat-dancer
     depends_on:
       - fluentd
@@ -65,8 +65,6 @@ services:
       APP_S3_OIDC_CLIENTSECRET: ${S3_CLIENT_SECRET}
     volumes:
       - ./volumes/dancer-media/images:/images-dir
-    links:
-      - fluentd
     logging:
       driver: fluentd
       options:
@@ -92,7 +90,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: db-dancer
   fluentd:
     container_name: fluentd
@@ -138,7 +136,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-iam
       
 
@@ -157,7 +155,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: db-iam
   kafka:
     container_name: kafka
@@ -184,7 +182,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-kafka
     depends_on:
       - fluentd
@@ -214,7 +212,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-kafka-ui
     depends_on:
       - fluentd
@@ -232,7 +230,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-kikeriki
   pg-admin:
     container_name: pg-admin
@@ -277,7 +275,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-prometheus
 
   recommendation:
@@ -300,7 +298,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-recommendation
   recommendation-db:
     container_name: recommendation-db
@@ -317,7 +315,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: db-recommendation
   s3:
     container_name: s3
@@ -354,7 +352,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-s3
 
   show-dancer:
@@ -368,12 +366,10 @@ services:
       - "traefik.http.routers.show-dancer.tls.certresolver=mytlschallenge"
     environment:
       DANCIER_BACKEND_URL: ${DANCIER_BACKEND_URL}
-    links:
-      - fluentd
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-show-dancer
     depends_on:
       - traefik
@@ -408,10 +404,8 @@ services:
     volumes:
       - "./volumes/letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    links:
-      - fluentd
     logging:
       driver: fluentd
       options:
-        fluentd-address: localhost:24224
+        fluentd-address: 127.0.0.1:24224
         tag: service-traefik
