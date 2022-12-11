@@ -7,14 +7,14 @@ packages:
   - rsync
 runcmd:
   - mkdir /mnt/dancelake-volume
-
-  - mount -o discard,defaults /dev/disk/by-id/scsi-0HC_Volume_24790706 /mnt/dancelake-volume
-  - echo "/dev/disk/by-id/scsi-0HC_Volume_24790706 /mnt/dancelake-volume ext4 discard,nofail,defaults 0 0" >> /etc/fstab
-
+  
+  - mount -o discard,defaults /dev/disk/by-id/scsi-0HC_Volume_20472124 /mnt/dancelake-volume
+  - echo "/dev/disk/by-id/scsi-0HC_Volume_20472124 /mnt/dancelake-volume ext4 discard,nofail,defaults 0 0" >> /etc/fstab
+  
   - curl -fsSL https://get.docker.com -o get-docker.sh
   - sh get-docker.sh
   - pip3 install docker-compose
-  - ln -s /mnt/test-dancelake /run-env
+  - ln -s /mnt/dancelake-volume /run-env
   - echo "source /run-env/settings.sh" >> /root/.bashrc
 
 power_state:
