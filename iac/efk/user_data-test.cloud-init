@@ -14,7 +14,7 @@ runcmd:
   - curl -fsSL https://get.docker.com -o get-docker.sh
   - sh get-docker.sh
   - pip3 install docker-compose
-  - ln -s /mnt/test-dancelake /run-env
+  - ln -s /mnt/dancelake-volume /run-env
   - echo "source /run-env/settings.sh" >> /root/.bashrc
 
 power_state:
