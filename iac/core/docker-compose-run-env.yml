@@ -381,7 +381,7 @@ services:
     stdin_open: true
   traefik:
     container_name: traefik
-    image: "traefik:v2.6"
+    image: "traefik:v2.9"
     command:
       - "--log.level=DEBUG"
       - "--log.format=json"
