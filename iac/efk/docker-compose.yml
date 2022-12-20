@@ -1,7 +1,5 @@
 version: "3"
 
-# Define the Docker volume named esdata for the Elasticsearch container.
-
 # Deploying three container services (fluentd, elasticsearch, and kibana)
 services: # Deploy using the custom image automatically be created during the build process.
 
@@ -30,14 +28,11 @@ services: # Deploy using the custom image automatically be created during the bu
       - "./volumes/letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
-# Created using the Docker image elasticsearch:7.17.0
   elasticsearch:
     image: elasticsearch:${ELASTIC_VERSION}
-#   ports:
-#  - 9200:9200
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.elasticsearch.rule=Host(`test-elastic.dancier.net`)"
+      - "traefik.http.routers.elasticsearch.rule=Host(`${ELASTIC_HOST_NAME}`)"
       - "traefik.http.routers.elasticsearch.entrypoints=websecure"
       - "traefik.http.routers.elasticsearch.tls.certresolver=mytlschallenge"
     environment:
@@ -55,12 +50,11 @@ services: # Deploy using the custom image automatically be created during the bu
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - ./volumes/esdata:/usr/share/elasticsearch/data
 
-# Created using the Docker image kibana:7.17.0
   kibana:
     image: kibana:${ELASTIC_VERSION}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.kibana.rule=Host(`test-dancelake.dancier.net`)"
+      - "traefik.http.routers.kibana.rule=Host(`${KIBANA_HOST_NAME}`)"
       - "traefik.http.routers.kibana.entrypoints=websecure"
       - "traefik.http.routers.kibana.tls.certresolver=mytlschallenge"
     links: # Links kibana service to the elasticsearch container
