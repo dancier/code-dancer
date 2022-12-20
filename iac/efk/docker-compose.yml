@@ -42,6 +42,7 @@ services: # Deploy using the custom image automatically be created during the bu
       # Used to initialize the keystore during the initial startup of
       # Elasticsearch. Ignored on subsequent runs.
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      KIBANA_HOST_NAME: ${KIBANA_HOST_NAME}
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
     depends_on:
