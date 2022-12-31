@@ -105,6 +105,9 @@ services:
       ELASTIC_HOST: ${ELASTIC_HOST}
       ELASTIC_USER: ${ELASTIC_USER}
       ELASTIC_PASS: ${ELASTIC_PASS}
+    logging:
+      options:
+        max-size: 200m
   iam:
     container_name: iam
     build: ./iam
