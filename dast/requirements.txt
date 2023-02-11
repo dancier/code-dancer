@@ -1,4 +1,4 @@
-ipython==8.6.0
+ipython==8.10.0
 requests
 minio
 jupyterlab
