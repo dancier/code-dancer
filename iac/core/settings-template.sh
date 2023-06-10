@@ -36,6 +36,7 @@ export PG_ADMIN_OAUTH2_TOKEN_URL=https://test-iam.dancier.net/realms/dancier/pro
 export PG_ADMIN_OAUTH2_AUTHORIZATION_URL=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/auth
 export PG_ADMIN_OAUTH2_API_BASE_URL=https://test-iam.dancier.net/realms/dancier
 export PG_ADMIN_OAUTH2_USERINFO_ENDPOINT=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/userinfo
+export PG_ADMIN_OAUTH2_SERVER_METADATA_URL=https://test-iam.dancier.net/realms/dancier/.well-known/openid-configuration
 export PG_ADMIN_HOSTNAME=pgadmin.dancier.net
 
 

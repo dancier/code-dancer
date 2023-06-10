@@ -237,7 +237,7 @@ services:
         tag: service-kikeriki
   pg-admin:
     container_name: pg-admin
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:7
     restart: unless-stopped
     labels:
       - "traefik.enable=true"

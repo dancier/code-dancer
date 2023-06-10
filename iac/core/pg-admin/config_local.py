@@ -68,6 +68,8 @@ OAUTH2_CONFIG = [
         'OAUTH2_API_BASE_URL': os.getenv('PG_ADMIN_OAUTH2_API_BASE_URL'),
         # Name of the Endpoint, ex: user
         'OAUTH2_USERINFO_ENDPOINT': os.getenv('PG_ADMIN_OAUTH2_USERINFO_ENDPOINT'),
+        # Meta-Data URL, needed since 7.0
+        'OAUTH2_SERVER_METADATA_URL': os.getenv('PG_ADMIN_OAUTH2_SERVER_METADATA_URL'),
         # Oauth scope, ex: 'openid email profile'
         # Note that an 'email' claim is required in the resulting profile
         'OAUTH2_SCOPE': 'openid email profile',
@@ -75,6 +77,7 @@ OAUTH2_CONFIG = [
         'OAUTH2_ICON': None,
         # UI button colour, ex: #0000ff
         'OAUTH2_BUTTON_COLOR': None,
+
     }
 ]
 
