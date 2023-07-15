@@ -1,0 +1,43 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+# Disable password authentication fo root user
+ssh_pwauth: false
+
+# Install required packages
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+
+# Install Docker + Docker Compose & Start Docker
+runcmd:
+  # Add repository
+  - echo 1 > /proc/sys/net/ipv4/ip_forward
+  - iptables -t nat -A POSTROUTING -s '10.0.0.0/16' -o eth0 -j MASQUERADE
+  - echo "#!/bin/sh" >> /etc/networkd-dispatcher/routable.d/50-masq
+  - echo "/bin/echo 1 > /proc/sys/net/ipv4/ip_forward" >> /etc/networkd-dispatcher/routable.d/50-masq
+  - echo "/sbin/iptables -t nat -A POSTROUTING -s '10.0.0.0/16' -o eth0 -j MASQUERADE" >> /etc/networkd-dispatcher/routable.d/50-masq
+  - chmod +x /etc/networkd-dispatcher/routable.d/50-masq
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  - chmod a+r /etc/apt/keyrings/docker.gpg
+  - echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  - apt-get update -y
+  # Install Docker Engine
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  - systemctl daemon-reload
+  - systemctl restart docker
+  - systemctl enable docker
+  - docker swarm init
+  - echo 10.0.0.2 manager-01 >> /etc/hosts
+  - echo 10.0.0.3 worker-01 >> /etc/hosts
+  - echo 10.0.0.4 runner-01 >> /etc/hosts
+  - echo 10.0.0.5 data-01 >> /etc/hosts
+
+  
+final_message: "The system is ready, after $UPTIME seconds"

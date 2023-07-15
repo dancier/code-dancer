@@ -1,0 +1,82 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+package_reboot_if_required: false
+
+# Disable password authentication fo root user
+ssh_pwauth: false
+
+network:
+  version: 2
+  ethernets:
+    ens10:
+      dhcp4: true
+      routes:
+      - to: 0.0.0.0/0
+        via: 10.0.0.1
+
+#cloud-config
+write_files:
+  - path: /etc/netplan/51-netcfg.yaml
+    permissions: '0644'
+    content: |
+      network:
+        version: 2
+        ethernets:
+          ens10:
+            dhcp4: true
+            routes:
+            - to: 0.0.0.0/0
+              via: 10.0.0.1
+  - path: /etc/systemd/resolved.conf
+    content: |
+      [Resolve]
+      DNS=185.12.64.2 185.12.64.1
+
+# Install required packages
+packages:
+  - apt-transport-https
+  - ca-certificates
+#  - curl
+  - meld
+  - gnupg-agent
+  - software-properties-common
+  - traceroute
+  
+
+# Install Docker + Docker Compose & Start Docker
+runcmd:
+  - echo "hallo Welt"
+  - sleep 10
+  - systemctl restart systemd-resolved.service
+  - /sbin/ip route add default via 10.0.0.1
+
+  # Setting up default route to our NAT-Gateway
+  # Following: https://community.hetzner.com/tutorials/how-to-set-up-nat-for-cloud-networks
+  # Making this default gateway configuration persistent
+  ##- echo "#!/bin/sh" >> /etc/networkd-dispatcher/routable.d/50-masq
+  ## Hack as theire seems to exist timing problems
+  ##- echo "sleep 10" >> /etc/networkd-dispatcher/routable.d/50-masq
+  ##- echo "/sbin/ip route add default via 10.0.0.1" >> /etc/networkd-dispatcher/routable.d/50-masq
+  ##- chmod +x /etc/networkd-dispatcher/routable.d/50-masq
+
+  # Now we have to setup the DNS Config
+  ##- echo "DNS=185.12.64.2 185.12.64.1" >> /etc/systemd/resolved.conf
+  ##- systemctl restart systemd-resolved.service
+
+  # Add repository
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  - chmod a+r /etc/apt/keyrings/docker.gpg
+  - ufw allow OpenSSH
+  - ufw --force enable
+  - echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  - apt-get update -y
+  # Install Docker Engine
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  - systemctl daemon-reload
+  - systemctl restart docker
+  - systemctl enable docker
+  - docker swarm init
+  
+final_message: "The system is ready, after $UPTIME seconds"
