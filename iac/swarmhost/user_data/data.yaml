@@ -18,7 +18,6 @@ users:
   - name: swarm
     sudo: ALL=(ALL) NOPASSWD:ALL
 
-
 # Install Docker + Docker Compose & Start Docker
 runcmd:
   # Add repository
@@ -36,6 +35,5 @@ runcmd:
   # add user without direct root capabilities
   - usermod -aG sudo swarm
   - rsync --archive --verbose --chown=swarm:swarm /root/.ssh /home/swarm
-  
- 
+   
 final_message: "The system is ready, after $UPTIME seconds"
