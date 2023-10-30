@@ -19,7 +19,20 @@ class RestClient:
         params = {
             "dancerId": dancer_id
         }
-        res = requests.get(self.hostname + "/chats", params=params)
+        res = requests.get(self.hostname + "/chats", params=params, headers=headers)
+        return res
+
+    def post_chats(self, participants):
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "dancerIds": participants,
+            "type": "DIRECT"
+        }
+
+        res = requests.post(self.hostname + "/chats", headers=headers, data=json.dumps(payload))
         return res
 
     def event_log(self):
