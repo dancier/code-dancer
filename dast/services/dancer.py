@@ -81,3 +81,12 @@ class RestClient:
         }
         r = requests.put(self.hostname + "/authentication/email-validations", headers=headers, data=json.dumps(payload))
         return r
+    # chats
+
+    def get_chats(self):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        r = requests.get(self.hostname + "/chats", headers=headers)
+        return  r

@@ -11,6 +11,25 @@ class RestClient:
     def __init__(self) -> None:
         pass
 
+    def get_chat_by_id(self, id):
+        headers = {
+            "Content-Type": "application/json"
+        }
+        res = requests.get(self.hostname + "/h/chats/" + id, headers=headers)
+        return res
+
+    def get_chats_by_participant(self, participant_id):
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        params = {
+            "participantId": participant_id
+        }
+        res = requests.get(self.hostname + "/h/chats", params=params, headers=headers)
+        return res
+
+
     def create_chat(self, participant_ids):
         headers = {
             "Content-Type": "application/json"
@@ -22,16 +41,6 @@ class RestClient:
         res = requests.post(self.hostname + "/h/chats", headers=headers, data=json.dumps(payload))
         return res
 
-    def get_chats_by_participant(self, dancer_id):
-        headers = {
-            "Content-Type": "application/json"
-        }
-
-        params = {
-            "dancerId": dancer_id
-        }
-        res = requests.get(self.hostname + "/h/chats", params=params, headers=headers)
-        return res
 
     def post_message(self, chat, text, author):
         headers = {

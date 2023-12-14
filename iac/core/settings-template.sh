@@ -2,8 +2,7 @@
 # Dancer DB
 ###################################
 
-export DANCER_DB_HOSTNAME=dancer-dbexport DANCER_DB_HOSTNAME=dancer-db
-
+export DANCER_DB_HOSTNAME=dancer-db
 export DANCER_DB_USER=dancer
 export DANCER_DB_PASSWORD=secret
 export DANCER_DB_DB=dancer
@@ -25,6 +24,26 @@ export DANCER_TAG=latest
 export APP_CAPTCHA_MAGICTOKEN=secret
 export APP_ADMIN_EMAIL=marc@becheftigt.de
 export APP_ADMIN_PASS=secret
+
+############################################
+# Chat Dancer DB
+##########################################
+export CHAT_DANCER_HOSTNAME=chat-dancer-db
+export CHAT_DANCER_DB_USER=chat-dancer
+export CHAT_DANCER_DB_PASSWORD=secret
+export CHAT_DANCER_DB_DB=chat-dancer
+
+
+##########################################
+# Chat-Dancer Service
+#######################################
+export CHAT_DANCER_TAG=1.0
+export CHAT_DANCER_SPRING_DATASOURCE_URL=jdbc:postgresql://${CHAT-DANCER_DB_HOSTNAME}:5432/${CHAT-DANCER_DB_DB}
+export CHAT_DANCER_SPRING_DATASOURCE_USERNAME=${CHAT_DANCER_DB_USER}
+export CHAT_DANCER_SPRING_DATASOURCE_PASSWORD=${CHAT_DANCER_DB_PASSWORD}
+
+
+
 
 ###################################
 # PG Admin
@@ -83,14 +102,6 @@ export RECOMMENDATION_S3_STS_ENDPOINT=https://test-s3.dancier.net
 export RECOMMENDATION_S3_HOST=test-s3.dancier.net
 export RECOMMENDATION_DB_TAG=recommendation-db
 
-
-# Chat Dancer
-
-export CHAT_DANCER_DB_USER=chat-dancer
-export CHAT_DANCER_DB_PASSWORD=secret
-export CHAT_DANCER_DB=chat-dancer
-export CHAT_DANCER_TAG=1.0
-export CHAT_DANCER_DB=chat-dancer-db
 
 
 export DANCIER_TOKEN_URI=https://test-iam.dancier.net/realms/dancier/protocol/openid-connect/token
