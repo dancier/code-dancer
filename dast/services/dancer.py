@@ -133,8 +133,7 @@ class RestClient:
             "Authorization": "Bearer " + self.cached_token
         }
         payload = {
-            "dancerIds": participantIds,
-            "type": "GROUP"
+            "participantIds": participantIds
         }
         r = requests.post(self.hostname + "/chats", headers=headers, data=json.dumps(payload))
         return r
