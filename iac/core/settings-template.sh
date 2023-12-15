@@ -28,7 +28,7 @@ export APP_ADMIN_PASS=secret
 ############################################
 # Chat Dancer DB
 ##########################################
-export CHAT_DANCER_HOSTNAME=chat-dancer-db
+export CHAT_DANCER_DB_HOSTNAME=chat-dancer-db
 export CHAT_DANCER_DB_USER=chat-dancer
 export CHAT_DANCER_DB_PASSWORD=secret
 export CHAT_DANCER_DB_DB=chat-dancer
@@ -38,7 +38,7 @@ export CHAT_DANCER_DB_DB=chat-dancer
 # Chat-Dancer Service
 #######################################
 export CHAT_DANCER_TAG=1.0
-export CHAT_DANCER_SPRING_DATASOURCE_URL=jdbc:postgresql://${CHAT-DANCER_DB_HOSTNAME}:5432/${CHAT-DANCER_DB_DB}
+export CHAT_DANCER_SPRING_DATASOURCE_URL=jdbc:postgresql://${CHAT_DANCER_DB_HOSTNAME}:5432/${CHAT_DANCER_DB_DB}
 export CHAT_DANCER_SPRING_DATASOURCE_USERNAME=${CHAT_DANCER_DB_USER}
 export CHAT_DANCER_SPRING_DATASOURCE_PASSWORD=${CHAT_DANCER_DB_PASSWORD}
 

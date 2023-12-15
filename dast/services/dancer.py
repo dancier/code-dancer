@@ -83,10 +83,59 @@ class RestClient:
         return r
     # chats
 
+    def get_recommendations(self):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        r = requests.get(self.hostname + "/recommendations", headers=headers)
+        return r
+
     def get_chats(self):
         headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + self.cached_token
         }
         r = requests.get(self.hostname + "/chats", headers=headers)
-        return  r
+        return r
+
+    def get_chat(self, chat_id):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        r = requests.get(self.hostname + "/chats/" + chat_id, headers=headers)
+        return r
+
+    def get_messages(self, chat_id):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        r = requests.get(self.hostname + "/chats/" + chat_id + "/messages", headers=headers)
+        return r
+
+    def post_message(self, chat_id, text, author_id):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        payload = {
+            "text": text,
+            "authorId": author_id
+        }
+        r = requests.post(self.hostname + "/chats/" + chat_id + "/messages", headers=headers, data=json.dumps(payload))
+        return r
+
+    def post_chat(self, participantIds):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        payload = {
+            "dancerIds": participantIds,
+            "type": "GROUP"
+        }
+        r = requests.post(self.hostname + "/chats", headers=headers, data=json.dumps(payload))
+        return r
+
