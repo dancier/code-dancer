@@ -17,7 +17,7 @@ class JsonImporter:
         password = dancer["password"]
         print("Perform Registration")
         self.dc.auth_registrations(email, password)
-        self.dc.auth_setValidationStatus(email, True)
+        self.dc.auth_set_validation_status(email, True)
 
     def put_profile(self, dancer):
         print("User Login")

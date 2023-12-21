@@ -24,6 +24,22 @@ class RestClient:
         r = requests.post(self.hostname + "/eventlog", headers=headers, data=json.dumps(payload))
         return r
 
+    def get_own_profile(self):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        r = requests.get(self.hostname + "/profile", headers=headers)
+        return r
+
+    def get_profile(self, dancer_id):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+        r = requests.get(self.hostname + "/profile/" + dancer_id, headers=headers)
+        return r
+
     def auth_whoami(self):
         headers = {
             "Content-Type": "application/json",
@@ -45,6 +61,7 @@ class RestClient:
         if r.status_code == 200:
             print("Login successful: ")
             print("Token stored for further reference")
+            print (r.headers["Set-Cookie"])
             self.cached_token = r.json()["accessToken"]
         return r
 
@@ -70,7 +87,7 @@ class RestClient:
         r = requests.put(self.hostname + "/profile", headers=headers, data=json.dumps(payload))
         return r
 
-    def auth_setValidationStatus(self, email, validated=True):
+    def auth_set_validation_status(self, email, validated=True):
         headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + self.cached_token
@@ -81,6 +98,7 @@ class RestClient:
         }
         r = requests.put(self.hostname + "/authentication/email-validations", headers=headers, data=json.dumps(payload))
         return r
+
     # chats
 
     def get_recommendations(self):
@@ -138,3 +156,16 @@ class RestClient:
         r = requests.post(self.hostname + "/chats", headers=headers, data=json.dumps(payload))
         return r
 
+    def set_read(self, message_id, read):
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.cached_token
+        }
+
+        payload = {
+            "read": read
+        }
+
+        res = requests.put(self.hostname + "/messages/" + message_id , headers=headers,
+                           data=json.dumps(payload))
+        return res

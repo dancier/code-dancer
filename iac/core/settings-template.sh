@@ -11,6 +11,8 @@ export DANCER_DB_DB=dancer
 # Dancer Service
 ###################################
 
+export DANCER_APP_COOKIE_SECURE=false
+export DANCER_APP_COOKIE_SAMESITE=None
 export SPRING_DATASOURCE_URL=jdbc:postgresql://${DANCER_DB_HOSTNAME}:5432/${DANCER_DB_DB}
 export SPRING_DATASOURCE_USERNAME=${DANCER_DB_USER}
 export SPRING_DATASOURCE_PASSWORD=${DANCER_DB_PASSWORD}
@@ -25,25 +27,22 @@ export APP_CAPTCHA_MAGICTOKEN=secret
 export APP_ADMIN_EMAIL=marc@becheftigt.de
 export APP_ADMIN_PASS=secret
 
-############################################
+################################
 # Chat Dancer DB
-##########################################
+################################
 export CHAT_DANCER_DB_HOSTNAME=chat-dancer-db
 export CHAT_DANCER_DB_USER=chat-dancer
 export CHAT_DANCER_DB_PASSWORD=secret
 export CHAT_DANCER_DB_DB=chat-dancer
 
-
-##########################################
+###############################
 # Chat-Dancer Service
-#######################################
+###############################
+
 export CHAT_DANCER_TAG=1.0
 export CHAT_DANCER_SPRING_DATASOURCE_URL=jdbc:postgresql://${CHAT_DANCER_DB_HOSTNAME}:5432/${CHAT_DANCER_DB_DB}
 export CHAT_DANCER_SPRING_DATASOURCE_USERNAME=${CHAT_DANCER_DB_USER}
 export CHAT_DANCER_SPRING_DATASOURCE_PASSWORD=${CHAT_DANCER_DB_PASSWORD}
-
-
-
 
 ###################################
 # PG Admin
@@ -59,8 +58,9 @@ export PG_ADMIN_OAUTH2_SERVER_METADATA_URL=https://test-iam.dancier.net/realms/d
 export PG_ADMIN_HOSTNAME=pgadmin.dancier.net
 
 
+##################################
 # Fluentd
-# for delivering the files
+##################################
 export ELASTIC_HOST=elastic.dancier.net
 export ELASTIC_USER=elastic
 export ELASTIC_PASS=secret
