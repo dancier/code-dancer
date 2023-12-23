@@ -143,8 +143,6 @@ services:
       options:
         fluentd-address: 127.0.0.1:24224
         tag: service-iam
-      
-
   iam-db:
     image: 'postgres:15'
     container_name: iam-db
@@ -210,6 +208,7 @@ services:
     environment:
       AKHQ_CONFIGURATION: |
         akhq:
+          
           connections:
             docker-kafka-server:
               properties:
