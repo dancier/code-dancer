@@ -48,6 +48,12 @@ class RestClient:
         r = requests.get(self.hostname + "/authentication/whoami", headers=headers)
         return r
 
+    def auth_logout(self):
+        r = requests.get(self.hostname + "/authentication/logout")
+        if r.status_code == 200:
+            print("removing cookie")
+            self.cached_token = None
+
     def auth_login(self, email, password):
         print("Login in with:" + email)
         headers = {
@@ -61,7 +67,20 @@ class RestClient:
         if r.status_code == 200:
             print("Login successful: ")
             print("Token stored for further reference")
-            print (r.headers["Set-Cookie"])
+            print(r.headers["Set-Cookie"])
+            self.cached_token = r.json()["accessToken"]
+        return r
+
+    def auth_login_as_human(self, captcha_token):
+        headers = {
+            "X-Captcha-Token": captcha_token
+        }
+        r = requests.post(self.hostname + "/authentication/loginAsHuman", headers=headers)
+        if r.status_code == 200:
+            print ("foo: " + str(r.headers))
+            print("Login as Human successful: ")
+            print("Token stored for further reference")
+            print(r.headers["Set-Cookie"])
             self.cached_token = r.json()["accessToken"]
         return r
 
@@ -166,6 +185,6 @@ class RestClient:
             "read": read
         }
 
-        res = requests.put(self.hostname + "/messages/" + message_id , headers=headers,
+        res = requests.put(self.hostname + "/messages/" + message_id, headers=headers,
                            data=json.dumps(payload))
         return res
