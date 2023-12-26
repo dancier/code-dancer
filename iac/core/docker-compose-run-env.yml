@@ -6,6 +6,7 @@ services:
     image: dancier/chat-dancer:${CHAT_DANCER_TAG}
     restart: unless-stopped
     environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATASOURCE_URL: ${CHAT_DANCER_SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${CHAT_DANCER_SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${CHAT_DANCER_SPRING_DATASOURCE_PASSWORD}
@@ -46,6 +47,7 @@ services:
       - "traefik.http.routers.dancer.entrypoints=websecure"
       - "traefik.http.routers.dancer.tls.certresolver=mytlschallenge"
     environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
