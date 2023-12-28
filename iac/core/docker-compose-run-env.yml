@@ -245,9 +245,9 @@ services:
     image: postgres:16
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${CHAT            _DANCER_DB_USER}
-      POSTGRES_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
-      POSTGRES_DB: ${CHAT_DANCER_DB_DB}
+      POSTGRES_USER: ${KIKERIKI_DB_USER}
+      POSTGRES_PASSWORD: ${KIKERIKI_DB_PASSWORD}
+      POSTGRES_DB: ${KIKERIKI_DB_DB}
     volumes:
       - ./volumes/kikeriki-db-data:/var/lib/postgresql/data
     logging:

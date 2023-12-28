@@ -124,6 +124,20 @@ export KAFKA_UI_HOSTNAME=test-kafka-ui.dancier.net
 
 export S3_OIDC_CLIENT_ID=s3
 
+#################################
+# Kikeriki
+#################################
+
+export KIKERIKI_TAG=1.0
+
+#################################
+# Kikeriki DB
+#################################
+
+export KIKERIKI_DB_USER = kikeriki
+export KIKERIKI_DB_PASSWORD = secrect
+export KIKERIKI_DB_DB = kikeriki
+
 ##################################
 # Prometheus
 ##################################
@@ -132,6 +146,5 @@ export PROMETHEUS_UI_HOST=test-prometheus.dancier.net
 
 export RUN_ENV=/run-env
 
-export KIKERIKI_TAG=1.0
 
 
