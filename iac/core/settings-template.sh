@@ -128,7 +128,8 @@ export S3_OIDC_CLIENT_ID=s3
 # Kikeriki
 #################################
 
-export KIKERIKI_TAG=1.0
+export KIKERIKI_TAG=latest
+export KIKERIKI_DB_HOSTNAME=kikeriki-db
 
 #################################
 # Kikeriki DB
