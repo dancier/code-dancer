@@ -228,7 +228,7 @@ services:
     image: dancier/kikeriki:${KIKERIKI_TAG}
     restart: unless-stopped
     environment:
-      SPRING_PROFILES_ACTIVE: json-logging
+      SPRING_PROFILES_ACTIVE: json-logging, staging
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       SPRING_DATASOURCE_URL: jdbc:postgresql://${KIKERIKI_DB_HOSTNAME}:5432/${KIKERIKI_DB_DB}
       SPRING_DATASOURCE_USERNAME: ${KIKERIKI_DB_USER}
