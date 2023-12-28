@@ -131,6 +131,9 @@ export S3_OIDC_CLIENT_ID=s3
 export KIKERIKI_TAG=latest
 export KIKERIKI_DB_HOSTNAME=kikeriki-db
 export KIKERIKI_PROFILES_ACTIVE=staging,json-logging
+export KIKERIKI_MAIL_USER=dev@dancier.net
+export KIKERIKI_MAIL_PASS=whatever
+
 
 #################################
 # Kikeriki DB
