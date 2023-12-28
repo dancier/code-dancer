@@ -134,9 +134,9 @@ export KIKERIKI_TAG=1.0
 # Kikeriki DB
 #################################
 
-export KIKERIKI_DB_USER = kikeriki
-export KIKERIKI_DB_PASSWORD = secrect
-export KIKERIKI_DB_DB = kikeriki
+export KIKERIKI_DB_USER=kikeriki
+export KIKERIKI_DB_PASSWORD=secrect
+export KIKERIKI_DB_DB=kikeriki
 
 ##################################
 # Prometheus
