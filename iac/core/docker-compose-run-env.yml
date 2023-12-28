@@ -223,7 +223,6 @@ services:
     depends_on:
       - fluentd
 
-
   kikeriki:
     container_name: kikeriki
     image: dancier/kikeriki:${KIKERIKI_TAG}
@@ -238,6 +237,27 @@ services:
       options:
         fluentd-address: 127.0.0.1:24224
         tag: service-kikeriki
+    depends_on:
+      - kikeriki-db
+
+  kikeriki-db:
+    container_name: kikeriki-db
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${CHAT            _DANCER_DB_USER}
+      POSTGRES_PASSWORD: ${CHAT_DANCER_DB_PASSWORD}
+      POSTGRES_DB: ${CHAT_DANCER_DB_DB}
+    volumes:
+      - ./volumes/kikeriki-db-data:/var/lib/postgresql/data
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        tag: db-kikeriki
+    depends_on:
+      - fluentd
+
   pg-admin:
     container_name: pg-admin
     image: dpage/pgadmin4:7

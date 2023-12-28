@@ -103,7 +103,7 @@ class RestClient:
             "Authorization": "Bearer " + self.cached_token
         }
         print("Putting: " + str(payload))
-        r = requests.put(self.hostname + "/profile", headers=headers, data=json.dumps(payload))
+        r = requests.put(self.hostname + "/profile", headers=headers, data=json.loads(payload))
         return r
 
     def auth_set_validation_status(self, email, validated=True):
