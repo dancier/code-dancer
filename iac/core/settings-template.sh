@@ -130,6 +130,7 @@ export S3_OIDC_CLIENT_ID=s3
 
 export KIKERIKI_TAG=latest
 export KIKERIKI_DB_HOSTNAME=kikeriki-db
+export KIKERIKI_PROFILES_ACTIVE=staging,json-logging
 
 #################################
 # Kikeriki DB
@@ -138,6 +139,7 @@ export KIKERIKI_DB_HOSTNAME=kikeriki-db
 export KIKERIKI_DB_USER=kikeriki
 export KIKERIKI_DB_PASSWORD=secrect
 export KIKERIKI_DB_DB=kikeriki
+
 
 ##################################
 # Prometheus
