@@ -2,7 +2,6 @@
 package_update: true
 package_upgrade: true
 packages:
-  - python3-pip
   - screen
   - rsync
 runcmd:
@@ -11,7 +10,6 @@ runcmd:
   - echo "/dev/disk/by-id/scsi-0HC_Volume_21864500 /mnt/core-volume ext4 discard,nofail,defaults 0 0" >> /etc/fstab
   - curl -fsSL https://get.docker.com -o get-docker.sh
   - sh get-docker.sh
-  - pip3 install docker-compose
   - ln -s /mnt/core-volume /run-env
   - echo "source /run-env/settings.sh" >> /root/.bashrc
   - mkdir -p /root/bin

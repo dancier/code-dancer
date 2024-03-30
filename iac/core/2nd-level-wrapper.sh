@@ -2,7 +2,7 @@
 
 if [ -z ${RUN_ENV} ];
   then 
-    echo "You have to provide the path to the docker-compose file as an environment-variable RUN_ENV"
+    echo "You have to provide the path to the docker compose file as an environment-variable RUN_ENV"
     exit 1;
 fi
 
@@ -45,13 +45,13 @@ case $1 in
         fi
     ;;
     up)
-        docker-compose up -d $2
+        docker compose up -d $2
     ;;
     stop)
-        docker-compose stop $2 
+        docker compose stop $2 
     ;;
     ps)
-        docker-compose ps
+        docker compose ps
     ;;
     stats)
         docker stats --no-stream
