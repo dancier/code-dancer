@@ -30,8 +30,8 @@ function deploy() {
     echo "Using Tag var: ${VAR_NAME}"
     echo "With Value: ${!VAR_NAME}"
     echo "Pulling ${SERVICE} with TAG: $2"
-    docker-compose pull ${SERVICE}
-    docker-compose up -d --build --no-deps ${SERVICE}
+    docker compose pull ${SERVICE}
+    docker compose up -d --build --no-deps ${SERVICE}
 }
 
 case $1 in

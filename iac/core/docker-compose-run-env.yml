@@ -235,13 +235,12 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${KIKERIKI_DB_PASSWORD}
     depends_on:
       - fluentd
+      - kikeriki-db
     logging:
       driver: fluentd
       options:
         fluentd-address: 127.0.0.1:24224
         tag: service-kikeriki
-    depends_on:
-      - kikeriki-db
 
   kikeriki-db:
     container_name: kikeriki-db
