@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   chat-dancer:
     container_name: chat-dancer
